@@ -1,0 +1,162 @@
+{
+  "project": "Skylark Adventure Park",
+  "tagline": "Ride the Sky. Feel the Rush.",
+  "build_date": "2026-04-23",
+  "output_file": "index.html",
+  "file_stats": {
+    "lines": 1679,
+    "bytes": 62430,
+    "kb": "60.97 KB"
+  },
+  "stack": {
+    "framework": "Vanilla HTML/CSS/JS",
+    "fonts": ["Baloo 2", "DM Sans", "Kaushan Script"],
+    "font_source": "Google Fonts",
+    "dependencies": [],
+    "external_scripts": []
+  },
+  "design_system": {
+    "palette": {
+      "primary": "#1AACF0",
+      "primary_deep": "#0B84CC",
+      "secondary": "#FF6230",
+      "tertiary": "#F0187A",
+      "accent": "#FFD63F",
+      "surface_base": "#F7FBFF",
+      "surface_raised": "#EBF6FF",
+      "ink": "#0C1A3A"
+    },
+    "radii": {
+      "sm": "10px",
+      "md": "18px",
+      "lg": "28px",
+      "xl": "36px",
+      "pill": "9999px"
+    },
+    "typography": {
+      "display": "Baloo 2 (800)",
+      "body": "DM Sans (300–600)",
+      "script_accent": "Kaushan Script"
+    },
+    "elevation": "Soft glowing shadows (rgba color-tinted)"
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "label": "Hero",
+      "features": [
+        "Full-viewport animated sky gradient (dawn to sunset)",
+        "CSS animated floating clouds (4 layers, staggered drift)",
+        "Radial pulsing sun with keyframe animation",
+        "SVG park silhouette (coaster, ferris wheel, drop tower, lights)",
+        "Staggered fade-up entrance animations",
+        "Scroll indicator with animated line drop",
+        "2 CTAs: Buy Tickets + Explore Rides"
+      ]
+    },
+    {
+      "id": "rides",
+      "label": "Featured Rides",
+      "rides": [
+        { "name": "Skybreaker", "zone": "Thunder Loop District", "intensity": "Extreme", "height_min": "48in" },
+        { "name": "Cloud Swing", "zone": "Cloud Harbor", "intensity": "Thrilling", "height_min": "42in" },
+        { "name": "Lightning Drop", "zone": "Thunder Loop District", "intensity": "Extreme", "height_min": "52in" },
+        { "name": "Comet Racers", "zone": "Thunder Loop District", "intensity": "High", "height_min": "46in" },
+        { "name": "Zephyr Glide", "zone": "Cloud Harbor", "intensity": "Gentle", "height_min": "All ages" }
+      ]
+    },
+    {
+      "id": "map",
+      "label": "Park Map",
+      "zones": [
+        { "name": "Sky Plaza", "color": "#1AACF0", "role": "Entry hub, tickets, information" },
+        { "name": "Thunder Loop District", "color": "#FF6230", "role": "High-thrill rides" },
+        { "name": "Cloud Harbor", "color": "#4DB6E8", "role": "Family rides + scenic attractions" },
+        { "name": "Neon Midway", "color": "#F0187A", "role": "Games, arcades, prizes" },
+        { "name": "Sunset Gardens", "color": "#F7A84A", "role": "Food, rest, relaxation" }
+      ]
+    },
+    {
+      "id": "games",
+      "label": "Games & Midway",
+      "items": ["Ring Toss", "Balloon Darts", "Arcade Zone", "Prize Booths"]
+    },
+    {
+      "id": "tickets",
+      "label": "Ticket Pricing",
+      "tiers": [
+        { "name": "General Admission", "price": 49, "featured": false },
+        { "name": "Unlimited Ride Wristband", "price": 69, "featured": true },
+        { "name": "Fast Pass Add-on", "price": 30, "featured": false },
+        { "name": "Family Pack (4)", "price": 160, "featured": false }
+      ]
+    },
+    {
+      "id": "food",
+      "label": "Food & Refreshments",
+      "items": ["Skydog Stand", "Cloud Slice", "Swirl Station", "Thunder Burgers", "Midway Snacks", "Refreshment Bars"]
+    },
+    {
+      "id": "events",
+      "label": "Events & Shows",
+      "items": ["Skylark Night Spectacle (nightly)", "Midway Live Stage (weekends)", "Skylark Nights Festival (seasonal)"]
+    },
+    {
+      "id": "gallery",
+      "label": "Gallery",
+      "layout": "Asymmetric 3-column CSS grid with spanning cells",
+      "items": 6
+    },
+    {
+      "id": "faq",
+      "label": "FAQ",
+      "items": 6,
+      "interaction": "JS accordion with max-height transition"
+    },
+    {
+      "id": "plan",
+      "label": "Plan Visit / Contact",
+      "info": ["Location", "Hours", "Parking", "Contact"]
+    }
+  ],
+  "animations": {
+    "hero_entrance": "Staggered fade-up (0ms, 150ms, 300ms, 450ms delay)",
+    "clouds": "CSS translateX drift, 22s–40s loops, 4 layers",
+    "sun": "Radial box-shadow pulse, 4s ease-in-out infinite",
+    "scroll_reveal": "IntersectionObserver, opacity + translateY(40px), 0.7s ease",
+    "nav": "Background + shadow transition on scroll past 60px",
+    "cards_hover": "translateY(-8px) + box-shadow glow, 0.3s ease",
+    "faq_accordion": "max-height expansion, 0.4s ease",
+    "gallery_hover": "scale(0.98) + overlay opacity, 0.3s"
+  },
+  "accessibility": {
+    "semantic_html": true,
+    "alt_text": true,
+    "keyboard_nav": true,
+    "scroll_behavior": "smooth",
+    "color_contrast": "Deep navy (#0C1A3A) on white — WCAG AA compliant"
+  },
+  "performance": {
+    "external_requests": 1,
+    "external_request_detail": "Google Fonts (preconnect + preload)",
+    "inline_svg": true,
+    "no_images": true,
+    "no_js_framework": true,
+    "estimated_lcp": "< 1s (no image LCP candidate)"
+  },
+  "responsive_breakpoints": ["640px", "768px", "1024px", "1280px"],
+  "seo": {
+    "title": "Skylark Adventure Park — Ride the Sky",
+    "meta_description": "A high-energy amusement park packed with thrilling rides, classic games, and sky-high fun."
+  },
+  "brand_voice": {
+    "archetype": "Energetic Guide",
+    "tone": { "formal_casual": 1, "serious_playful": 5, "reserved_expressive": 5, "modern_timeless": 3 },
+    "key_phrases_used": [
+      "Ride the Sky. Feel the Rush.",
+      "Chase the skyline",
+      "Spin, soar, repeat",
+      "Win big on the midway"
+    ]
+  }
+}

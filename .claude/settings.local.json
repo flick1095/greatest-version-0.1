@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(nano-banana-2)",
+      "Bash(npx *)",
+      "Bash(pip show *)",
+      "Bash(pip3 show *)",
+      "Bash(python3 -c \"import google.generativeai\")",
+      "Bash(python3 -c \"import google.genai\")",
+      "Bash(curl -s 'https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=AIzaSyAywdmRrSro0oVhASG_6ra-c7tl-OPzNys' -X POST -H 'Content-Type: application/json' -d '{\"instances\":[{\"prompt\":\"Aerial view of a bright amusement park, roller coasters, ferris wheel, blue sky, cinematic lighting, photorealistic\"}],\"parameters\":{\"sampleCount\":1}}')",
+      "Bash(curl -s \"https://generativelanguage.googleapis.com/v1beta/models?key=AIzaSyAywdmRrSro0oVhASG_6ra-c7tl-OPzNys\")",
+      "Bash(python3 -c \"import sys,json; models=json.load\\(sys.stdin\\).get\\('models',[]\\); [print\\(m['name']\\) for m in models if 'image' in m['name'].lower\\(\\) or 'imagen' in m['name'].lower\\(\\)]\")",
+      "Bash(python generate_images.py)",
+      "Bash(curl *)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d.get\\('error',{}\\).get\\('message','OK - checking for image...'\\)[:300] if 'error' in d else 'SUCCESS'\\)\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); e=d.get\\('error',{}\\); print\\(e.get\\('code'\\), e.get\\('message','OK'\\)[:200] if 'error' in d else 'SUCCESS'\\)\")"
+    ]
+  }
+}

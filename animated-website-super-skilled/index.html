@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skylark Adventure Park — Ride the Sky</title>
+  <meta name="description" content="A high-energy amusement park packed with thrilling rides, classic games, and sky-high fun.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Kaushan+Script&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sky: #1AACF0;
+      --sky-deep: #0B84CC;
+      --sky-light: #D9F3FF;
+      --orange: #FF6230;
+      --orange-light: #FF8555;
+      --magenta: #F0187A;
+      --yellow: #FFD63F;
+      --white: #F7FBFF;
+      --navy: #0C1A3A;
+      --navy-mid: #1A2E5A;
+      --surface: #EBF6FF;
+      --r-sm: 10px; --r-md: 18px; --r-lg: 28px; --r-xl: 36px; --r-pill: 9999px;
+      --shadow-sky: 0 8px 32px rgba(26,172,240,0.35);
+      --shadow-orange: 0 8px 32px rgba(255,98,48,0.35);
+      --shadow-magenta: 0 8px 32px rgba(240,24,122,0.3);
+      --shadow-yellow: 0 6px 24px rgba(255,214,63,0.5);
+      --font-display: 'Baloo 2', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-script: 'Kaushan Script', cursive;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--navy);
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--sky-light); }
+    ::-webkit-scrollbar-thumb { background: var(--sky); border-radius: 4px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 70px;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(255,251,247,0.95);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px rgba(12,26,58,0.1);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+    .nav-logo svg { width: 38px; height: 38px; }
+    .nav-logo-text {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--navy);
+      line-height: 1;
+    }
+    .nav-logo-text span { color: var(--sky); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: var(--navy);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--sky); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.6rem 1.4rem;
+      border-radius: var(--r-pill);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover { transform: translateY(-3px); }
+
+    .btn-primary {
+      background: var(--orange);
+      color: #fff;
+      box-shadow: var(--shadow-orange);
+    }
+    .btn-primary:hover { box-shadow: 0 12px 40px rgba(255,98,48,0.5); }
+
+    .btn-sky {
+      background: var(--sky);
+      color: #fff;
+      box-shadow: var(--shadow-sky);
+    }
+    .btn-sky:hover { box-shadow: 0 12px 40px rgba(26,172,240,0.55); }
+
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      border: 2.5px solid rgba(255,255,255,0.7);
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: #fff;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 100px 2rem 4rem;
+    }
+
+    .hero-sky {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(180deg,
+          rgba(11,43,107,0.72) 0%,
+          rgba(21,103,194,0.55) 18%,
+          rgba(43,188,247,0.28) 40%,
+          rgba(125,216,247,0.18) 62%,
+          rgba(185,235,255,0.22) 80%,
+          rgba(255,215,176,0.55) 92%,
+          rgba(255,174,112,0.72) 100%),
+        url('images/hero.jpg');
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+
+    /* Sun */
+    .hero-sun {
+      position: absolute;
+      bottom: 18%;
+      right: 12%;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #FFF4A0 0%, #FFD63F 50%, #FFAE30 100%);
+      box-shadow: 0 0 60px 30px rgba(255,214,63,0.6), 0 0 120px 60px rgba(255,180,50,0.3);
+      animation: sun-pulse 4s ease-in-out infinite;
+      z-index: 1;
+    }
+    @keyframes sun-pulse {
+      0%, 100% { box-shadow: 0 0 60px 30px rgba(255,214,63,0.6), 0 0 120px 60px rgba(255,180,50,0.3); }
+      50% { box-shadow: 0 0 80px 40px rgba(255,214,63,0.8), 0 0 160px 80px rgba(255,180,50,0.4); }
+    }
+
+    /* Clouds */
+    .cloud-layer { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+    .cloud {
+      position: absolute;
+      background: rgba(255,255,255,0.9);
+      border-radius: 50px;
+      filter: blur(2px);
+    }
+    .cloud::before, .cloud::after {
+      content: '';
+      position: absolute;
+      background: rgba(255,255,255,0.9);
+      border-radius: 50%;
+    }
+    .c1 { width: 180px; height: 55px; top: 18%; left: -200px; animation: drift 22s linear infinite; }
+    .c1::before { width: 70px; height: 70px; top: -35px; left: 25px; }
+    .c1::after { width: 90px; height: 90px; top: -45px; left: 65px; }
+
+    .c2 { width: 130px; height: 40px; top: 28%; left: -150px; animation: drift 32s linear 8s infinite; opacity: 0.75; }
+    .c2::before { width: 55px; height: 55px; top: -28px; left: 15px; }
+    .c2::after { width: 70px; height: 70px; top: -35px; left: 48px; }
+
+    .c3 { width: 220px; height: 65px; top: 10%; left: -250px; animation: drift 26s linear 4s infinite; opacity: 0.85; }
+    .c3::before { width: 85px; height: 85px; top: -42px; left: 30px; }
+    .c3::after { width: 110px; height: 110px; top: -55px; left: 80px; }
+
+    .c4 { width: 100px; height: 32px; top: 35%; left: -120px; animation: drift 40s linear 12s infinite; opacity: 0.6; }
+    .c4::before { width: 40px; height: 40px; top: -20px; left: 10px; }
+    .c4::after { width: 55px; height: 55px; top: -28px; left: 36px; }
+
+    @keyframes drift {
+      from { transform: translateX(0); }
+      to { transform: translateX(calc(100vw + 400px)); }
+    }
+
+    /* Park silhouette */
+    .hero-park {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 280px;
+      z-index: 2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 780px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(255,255,255,0.4);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: var(--r-pill);
+      margin-bottom: 1.5rem;
+      animation: hero-fade-up 0.8s ease both;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1.05;
+      color: #fff;
+      text-shadow: 0 4px 24px rgba(0,0,0,0.25);
+      margin-bottom: 0.5rem;
+      animation: hero-fade-up 0.8s ease 0.15s both;
+    }
+    .hero-title .accent { color: var(--yellow); }
+
+    .hero-tagline {
+      font-family: var(--font-script);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 2.5rem;
+      animation: hero-fade-up 0.8s ease 0.3s both;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: hero-fade-up 0.8s ease 0.45s both;
+    }
+    .hero-ctas .btn { font-size: 1.05rem; padding: 0.85rem 2rem; }
+
+    @keyframes hero-fade-up {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: hero-fade-up 1s ease 0.8s both;
+    }
+    .scroll-hint span { font-weight: 600; }
+    .scroll-line {
+      width: 2px;
+      height: 40px;
+      background: rgba(255,255,255,0.4);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+    .scroll-line::after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 40%;
+      background: #fff;
+      border-radius: 1px;
+      animation: scroll-drop 1.5s ease-in-out infinite;
+    }
+    @keyframes scroll-drop {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(250%); }
+    }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 6rem 2rem; }
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sky);
+      margin-bottom: 0.8rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 22px;
+      height: 3px;
+      background: var(--sky);
+      border-radius: 2px;
+    }
+
+    h2.section-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--navy);
+      line-height: 1.15;
+      margin-bottom: 0.6rem;
+    }
+    h2.section-title .hi { color: var(--sky); }
+    h2.section-title .ho { color: var(--orange); }
+
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--navy-mid);
+      opacity: 0.75;
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RIDES ── */
+    #rides { background: var(--white); }
+
+    .rides-header { margin-bottom: 3.5rem; }
+
+    .rides-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .ride-card {
+      background: #fff;
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(12,26,58,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .ride-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(12,26,58,0.15);
+    }
+
+    .ride-card-top {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .ride-card-top svg { width: 90px; height: 90px; opacity: 0.9; z-index: 1; position: relative; }
+    .ride-card-top img.ride-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      opacity: 0.65;
+      transition: opacity 0.3s, transform 0.4s;
+    }
+    .ride-card:hover .ride-img { opacity: 0.8; transform: scale(1.06); }
+    .ride-card-top::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: inherit;
+      opacity: 0.55;
+    }
+    .ride-card-top svg { z-index: 2; position: relative; }
+    .ride-badge { z-index: 2; }
+
+    .ride-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: var(--yellow);
+      color: var(--navy);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--r-pill);
+    }
+
+    .ride-card-body { padding: 1.5rem; }
+    .ride-zone {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 0.4rem;
+    }
+    .ride-name {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+    .ride-desc {
+      font-size: 0.9rem;
+      color: var(--navy-mid);
+      opacity: 0.7;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .ride-stats {
+      display: flex;
+      gap: 1rem;
+    }
+    .ride-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--navy-mid);
+      opacity: 0.7;
+    }
+    .ride-stat svg { width: 14px; height: 14px; }
+
+    /* ── MAP ── */
+    #map {
+      background: linear-gradient(180deg, var(--sky-light) 0%, var(--surface) 100%);
+    }
+
+    .map-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 3rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+
+    .map-zones { display: flex; flex-direction: column; gap: 1rem; }
+
+    .zone-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      border-radius: var(--r-md);
+      background: #fff;
+      box-shadow: 0 2px 12px rgba(12,26,58,0.06);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border-left: 5px solid;
+    }
+    .zone-item:hover { transform: translateX(6px); box-shadow: 0 6px 24px rgba(12,26,58,0.12); }
+    .zone-dot {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+    }
+    .zone-info h4 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--navy);
+    }
+    .zone-info p { font-size: 0.82rem; color: var(--navy-mid); opacity: 0.65; margin-top: 0.15rem; }
+
+    .z1 { border-color: var(--sky); }
+    .z1 .zone-dot { background: rgba(26,172,240,0.15); color: var(--sky); }
+    .z2 { border-color: var(--orange); }
+    .z2 .zone-dot { background: rgba(255,98,48,0.12); color: var(--orange); }
+    .z3 { border-color: #4DB6E8; }
+    .z3 .zone-dot { background: rgba(77,182,232,0.12); color: #4DB6E8; }
+    .z4 { border-color: var(--magenta); }
+    .z4 .zone-dot { background: rgba(240,24,122,0.1); color: var(--magenta); }
+    .z5 { border-color: #F7A84A; }
+    .z5 .zone-dot { background: rgba(247,168,74,0.12); color: #F7A84A; }
+
+    .map-visual {
+      background: #fff;
+      border-radius: var(--r-xl);
+      box-shadow: 0 8px 40px rgba(12,26,58,0.1);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      position: relative;
+    }
+
+    /* ── GAMES ── */
+    #games { background: var(--navy); position: relative; overflow: hidden; }
+    #games::before {
+      content: '';
+      position: absolute;
+      top: -60px; left: -60px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(240,24,122,0.15) 0%, transparent 70%);
+    }
+    #games::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; right: -60px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(26,172,240,0.12) 0%, transparent 70%);
+    }
+    #games .section-label { color: var(--magenta); }
+    #games .section-label::before { background: var(--magenta); }
+    #games h2.section-title { color: #fff; }
+    #games .section-sub { color: rgba(255,255,255,0.55); }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.4rem;
+      margin-top: 3rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .game-card {
+      background: rgba(255,255,255,0.05);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: var(--r-lg);
+      padding: 1.8rem 1.5rem;
+      transition: background 0.3s, border-color 0.3s, transform 0.3s;
+      text-align: center;
+    }
+    .game-card:hover {
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(240,24,122,0.5);
+      transform: translateY(-6px);
+      box-shadow: 0 0 30px rgba(240,24,122,0.2);
+    }
+    .game-icon {
+      width: 64px; height: 64px;
+      margin: 0 auto 1.2rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      background: rgba(255,255,255,0.08);
+    }
+    .game-card h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .game-card p { font-size: 0.87rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+    /* ── TICKETS ── */
+    #tickets { background: var(--white); }
+
+    .tickets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.6rem;
+      margin-top: 3rem;
+    }
+
+    .ticket-card {
+      background: #fff;
+      border-radius: var(--r-xl);
+      padding: 2rem 1.8rem;
+      box-shadow: 0 4px 24px rgba(12,26,58,0.07);
+      border: 2.5px solid transparent;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .ticket-card:hover { transform: translateY(-8px); }
+    .ticket-card.featured {
+      border-color: var(--sky);
+      box-shadow: var(--shadow-sky);
+      background: linear-gradient(145deg, #fff 60%, rgba(26,172,240,0.06) 100%);
+    }
+    .ticket-card.featured::before {
+      content: '★ MOST POPULAR';
+      position: absolute;
+      top: 18px; right: -28px;
+      background: var(--sky);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      padding: 0.3rem 2.5rem;
+      transform: rotate(45deg);
+      transform-origin: center;
+    }
+
+    .ticket-icon {
+      width: 52px; height: 52px;
+      border-radius: var(--r-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+    .ticket-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--navy);
+      margin-bottom: 0.8rem;
+    }
+    .ticket-price {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 2.8rem;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+    .ticket-price sup { font-size: 1.2rem; vertical-align: top; margin-top: 0.5rem; }
+    .ticket-desc { font-size: 0.85rem; color: var(--navy-mid); opacity: 0.6; margin-bottom: 1.4rem; }
+    .ticket-perks { list-style: none; margin-bottom: 1.6rem; display: flex; flex-direction: column; gap: 0.5rem; }
+    .ticket-perks li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.87rem;
+      color: var(--navy-mid);
+    }
+    .ticket-perks li::before { content: '✓'; color: var(--sky); font-weight: 700; }
+    .ticket-card .btn { width: 100%; justify-content: center; }
+
+    /* ── FOOD ── */
+    #food {
+      background: linear-gradient(135deg, #FFF5EC 0%, #FFF0E0 50%, #FFF8EE 100%);
+    }
+    #food .section-label { color: var(--orange); }
+    #food .section-label::before { background: var(--orange); }
+
+    .food-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.4rem;
+      margin-top: 3rem;
+    }
+    .food-card {
+      background: #fff;
+      border-radius: var(--r-lg);
+      padding: 1.6rem;
+      text-align: center;
+      box-shadow: 0 3px 16px rgba(255,98,48,0.1);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .food-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 30px rgba(255,98,48,0.2);
+    }
+    .food-card .icon { font-size: 2.8rem; margin-bottom: 0.8rem; display: block; }
+    .food-card h4 { font-family: var(--font-display); font-weight: 700; color: var(--navy); margin-bottom: 0.3rem; }
+    .food-card p { font-size: 0.82rem; color: var(--navy-mid); opacity: 0.65; }
+
+    /* ── EVENTS ── */
+    #events { background: var(--sky-light); }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.6rem;
+      margin-top: 3rem;
+    }
+    .event-card {
+      background: #fff;
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(12,26,58,0.07);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .event-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(12,26,58,0.12); }
+    .event-banner {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+    .event-body { padding: 1.4rem; }
+    .event-tag {
+      display: inline-block;
+      background: var(--sky-light);
+      color: var(--sky-deep);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--r-pill);
+      margin-bottom: 0.5rem;
+    }
+    .event-body h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--navy); margin-bottom: 0.4rem; }
+    .event-body p { font-size: 0.87rem; color: var(--navy-mid); opacity: 0.65; line-height: 1.6; }
+
+    /* ── GALLERY ── */
+    #gallery { background: var(--white); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+
+    .gallery-item {
+      border-radius: var(--r-md);
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s;
+    }
+    .gallery-item:hover { transform: scale(0.98); }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-item:nth-child(1) { grid-row: span 2; }
+    .gallery-item:nth-child(4) { grid-column: span 2; }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      min-height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.05); }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(12,26,58,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .gallery-overlay span { color: #fff; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.05em; }
+
+    /* ── FAQ ── */
+    #faq { background: linear-gradient(180deg, var(--surface) 0%, var(--white) 100%); }
+
+    .faq-list {
+      max-width: 760px;
+      margin: 3rem auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .faq-item {
+      background: #fff;
+      border-radius: var(--r-lg);
+      box-shadow: 0 2px 12px rgba(12,26,58,0.06);
+      overflow: hidden;
+    }
+
+    .faq-q {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.3rem 1.6rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--navy);
+      transition: color 0.2s;
+      gap: 1rem;
+      user-select: none;
+    }
+    .faq-q:hover { color: var(--sky); }
+    .faq-q svg {
+      flex-shrink: 0;
+      width: 20px; height: 20px;
+      transition: transform 0.3s;
+      color: var(--sky);
+    }
+    .faq-item.open .faq-q svg { transform: rotate(180deg); }
+    .faq-item.open .faq-q { color: var(--sky); }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .faq-a-inner {
+      padding: 0 1.6rem 1.3rem;
+      font-size: 0.93rem;
+      color: var(--navy-mid);
+      opacity: 0.7;
+      line-height: 1.75;
+    }
+
+    /* ── PLAN / CONTACT ── */
+    #plan { background: var(--navy); position: relative; overflow: hidden; }
+    #plan::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(26,172,240,0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 50%, rgba(255,98,48,0.1) 0%, transparent 60%);
+    }
+    #plan h2.section-title { color: #fff; }
+    #plan .section-label { color: var(--yellow); }
+    #plan .section-label::before { background: var(--yellow); }
+    #plan .section-sub { color: rgba(255,255,255,0.55); }
+
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.4rem;
+      margin-top: 3rem;
+      position: relative;
+      z-index: 1;
+    }
+    .plan-card {
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: var(--r-lg);
+      padding: 1.6rem;
+      text-align: center;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .plan-card:hover { background: rgba(255,255,255,0.11); border-color: rgba(26,172,240,0.4); }
+    .plan-card .icon { font-size: 2rem; margin-bottom: 0.8rem; }
+    .plan-card h4 { font-family: var(--font-display); font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
+    .plan-card p { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+    .plan-cta {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+    .plan-cta .btn { font-size: 1.05rem; padding: 0.9rem 2rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #060E22;
+      color: rgba(255,255,255,0.5);
+      padding: 3rem 2rem;
+    }
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .footer-brand {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: #fff;
+    }
+    .footer-brand span { color: var(--sky); }
+    .footer-links { display: flex; gap: 1.8rem; }
+    .footer-links a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 0.87rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--sky); }
+    .footer-copy { font-size: 0.82rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .map-wrap { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item:nth-child(1) { grid-row: span 1; }
+      .gallery-item:nth-child(4) { grid-column: span 1; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 1.2rem; }
+      .nav-links { display: none; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .hero-title { font-size: 2.6rem; }
+    }
+    @media (max-width: 640px) {
+      section { padding: 4rem 1.2rem; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item:nth-child(4) { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="#">
+    <svg viewBox="0 0 38 38" fill="none">
+      <circle cx="19" cy="19" r="18" fill="#1AACF0" opacity="0.15"/>
+      <path d="M5 26 Q10 8 19 10 Q28 8 33 26" stroke="#1AACF0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M12 26 Q14 16 19 14 Q24 16 26 26" stroke="#FF6230" stroke-width="2" fill="rgba(255,98,48,0.15)" stroke-linecap="round"/>
+      <circle cx="19" cy="26" r="3.5" fill="#FFD63F"/>
+    </svg>
+    <span class="nav-logo-text">Sky<span>lark</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#rides">Rides</a></li>
+    <li><a href="#map">Park Map</a></li>
+    <li><a href="#games">Games</a></li>
+    <li><a href="#tickets">Tickets</a></li>
+    <li><a href="#plan">Plan Visit</a></li>
+  </ul>
+  <a class="btn btn-primary" href="#tickets">Buy Tickets</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-sky"></div>
+  <div class="hero-sun"></div>
+
+  <div class="cloud-layer">
+    <div class="cloud c1"></div>
+    <div class="cloud c2"></div>
+    <div class="cloud c3"></div>
+    <div class="cloud c4"></div>
+  </div>
+
+  <!-- Park Skyline SVG -->
+  <svg class="hero-park" viewBox="0 0 1440 280" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <!-- Ground -->
+    <rect x="0" y="240" width="1440" height="40" fill="#1A6B2E"/>
+    <rect x="0" y="250" width="1440" height="30" fill="#145220"/>
+    <!-- Buildings / structures left -->
+    <rect x="20" y="160" width="60" height="80" fill="#0C5EA0" rx="4"/>
+    <rect x="28" y="140" width="44" height="25" fill="#1074C2" rx="3"/>
+    <!-- Coaster structure -->
+    <path d="M120 240 L120 80 L200 80 L250 120 L300 60 L350 100 L380 80 L380 240" fill="none" stroke="#FF6230" stroke-width="3.5"/>
+    <path d="M300 60 Q305 40 310 60 Q315 45 320 60 Q325 42 330 60" fill="none" stroke="#FF6230" stroke-width="3.5"/>
+    <path d="M120 80 L380 80" stroke="#FF6230" stroke-width="2" opacity="0.4"/>
+    <path d="M120 100 L380 100" stroke="#FF6230" stroke-width="1.5" opacity="0.3"/>
+    <!-- Flag -->
+    <line x1="300" y1="60" x2="300" y2="30" stroke="#FFD63F" stroke-width="2.5"/>
+    <polygon points="300,30 320,38 300,46" fill="#FFD63F"/>
+    <!-- Center tower -->
+    <rect x="560" y="100" width="50" height="140" fill="#1AACF0" rx="4"/>
+    <rect x="548" y="90" width="74" height="20" fill="#2BBCF7" rx="3"/>
+    <rect x="575" y="70" width="20" height="25" fill="#2BBCF7" rx="2"/>
+    <polygon points="585,55 575,70 595,70" fill="#FFD63F"/>
+    <!-- Ferris wheel -->
+    <circle cx="730" cy="140" r="80" fill="none" stroke="#F0187A" stroke-width="3.5"/>
+    <circle cx="730" cy="140" r="12" fill="#F0187A"/>
+    <line x1="730" y1="60" x2="730" y2="220" stroke="#F0187A" stroke-width="2"/>
+    <line x1="650" y1="140" x2="810" y2="140" stroke="#F0187A" stroke-width="2"/>
+    <line x1="673" y1="83" x2="787" y2="197" stroke="#F0187A" stroke-width="2"/>
+    <line x1="787" y1="83" x2="673" y2="197" stroke="#F0187A" stroke-width="2"/>
+    <rect x="714" y="56" width="32" height="20" fill="rgba(255,255,255,0.8)" rx="4"/>
+    <rect x="804" y="126" width="32" height="20" fill="rgba(255,255,255,0.8)" rx="4"/>
+    <rect x="714" y="204" width="32" height="20" fill="rgba(255,255,255,0.8)" rx="4"/>
+    <rect x="624" y="126" width="32" height="20" fill="rgba(255,255,255,0.8)" rx="4"/>
+    <line x1="730" y1="220" x2="680" y2="240" stroke="#F0187A" stroke-width="3"/>
+    <line x1="730" y1="220" x2="780" y2="240" stroke="#F0187A" stroke-width="3"/>
+    <!-- Drop tower right -->
+    <rect x="970" y="40" width="22" height="200" fill="#0B84CC" rx="3"/>
+    <rect x="956" y="40" width="50" height="16" fill="#1AACF0" rx="3"/>
+    <rect x="963" y="160" width="36" height="28" fill="#FFD63F" rx="4"/>
+    <!-- Right buildings -->
+    <rect x="1100" y="140" width="80" height="100" fill="#8E44AD" rx="4" opacity="0.7"/>
+    <rect x="1200" y="110" width="55" height="130" fill="#1074C2" rx="4"/>
+    <rect x="1260" y="150" width="90" height="90" fill="#0C5EA0" rx="4"/>
+    <!-- Trees/flags -->
+    <circle cx="450" cy="220" r="22" fill="#1A6B2E"/>
+    <circle cx="475" cy="215" r="18" fill="#22883A"/>
+    <rect x="461" y="235" width="6" height="8" fill="#8B5E3C"/>
+    <circle cx="880" cy="220" r="20" fill="#1A6B2E"/>
+    <circle cx="860" cy="215" r="16" fill="#22883A"/>
+    <rect x="867" y="234" width="5" height="8" fill="#8B5E3C"/>
+    <!-- Lights string -->
+    <path d="M100 200 Q200 210 300 200 Q400 210 500 200" fill="none" stroke="#FFD63F" stroke-width="1.5" opacity="0.6"/>
+    <circle cx="150" cy="205" r="3" fill="#FFD63F" opacity="0.8"/>
+    <circle cx="200" cy="207" r="3" fill="#FF6230" opacity="0.8"/>
+    <circle cx="250" cy="203" r="3" fill="#F0187A" opacity="0.8"/>
+    <circle cx="300" cy="205" r="3" fill="#FFD63F" opacity="0.8"/>
+    <circle cx="350" cy="203" r="3" fill="#1AACF0" opacity="0.8"/>
+    <circle cx="400" cy="205" r="3" fill="#FF6230" opacity="0.8"/>
+    <circle cx="450" cy="203" r="3" fill="#FFD63F" opacity="0.8"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M6 0l1.5 4.5H12L8.25 7.3l1.5 4.7L6 9.2 2.25 12l1.5-4.7L0 4.5h4.5z"/></svg>
+      Open Daily 10am – 10pm
+    </div>
+    <h1 class="hero-title">Skylark<br><span class="accent">Adventure Park</span></h1>
+    <p class="hero-tagline">Ride the Sky. Feel the Rush.</p>
+    <div class="hero-ctas">
+      <a href="#tickets" class="btn btn-primary">🎟 Buy Tickets</a>
+      <a href="#rides" class="btn btn-outline">Explore Rides ↓</a>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- RIDES -->
+<section id="rides">
+  <div class="container">
+    <div class="rides-header reveal">
+      <div class="section-label">Thrills Await</div>
+      <h2 class="section-title">Our <span class="hi">Signature</span> Rides</h2>
+      <p class="section-sub">Five sky-defying experiences built to make your heart race and your spirit soar.</p>
+    </div>
+    <div class="rides-grid">
+
+      <div class="ride-card reveal" style="transition-delay:0.05s">
+        <div class="ride-card-top" style="background:linear-gradient(135deg,#FF6230,#FF9050)">
+          <img class="ride-img" src="images/ride1.jpg" alt="Skybreaker roller coaster" loading="lazy">
+          <span class="ride-badge">🔥 #1 Ride</span>
+          <svg viewBox="0 0 90 90" fill="none">
+            <path d="M15 70 Q20 40 35 30 Q45 25 55 35 Q65 45 75 20 L80 20 Q70 55 60 60 Q50 65 40 55 Q30 45 25 70Z" fill="white" opacity="0.9"/>
+            <circle cx="75" cy="20" r="5" fill="#FFD63F"/>
+          </svg>
+        </div>
+        <div class="ride-card-body">
+          <div class="ride-zone" style="color:#FF6230">Thunder Loop District</div>
+          <div class="ride-name">Skybreaker</div>
+          <p class="ride-desc">The park's crown jewel — a massive looping coaster that launches you skyward at 70mph before threading three inverted loops.</p>
+          <div class="ride-stats">
+            <span class="ride-stat">
+              <svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 4h4l-3.2 2.3 1.2 3.7L7 8.6l-3.5 2.4 1.2-3.7L1.5 5h4z"/></svg>
+              Extreme
+            </span>
+            <span class="ride-stat">
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5.5"/><path d="M7 4v4l2.5 1.5"/></svg>
+              2 min
+            </span>
+            <span class="ride-stat">📏 48" min</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ride-card reveal" style="transition-delay:0.1s">
+        <div class="ride-card-top" style="background:linear-gradient(135deg,#1AACF0,#6DD5FA)">
+          <img class="ride-img" src="images/ride2.jpg" alt="Cloud Swing ride" loading="lazy">
+          <svg viewBox="0 0 90 90" fill="none">
+            <circle cx="45" cy="45" r="20" fill="none" stroke="white" stroke-width="3"/>
+            <path d="M45 25 Q60 30 65 45 Q60 60 45 65 Q30 60 25 45 Q30 30 45 25Z" fill="rgba(255,255,255,0.2)"/>
+            <line x1="45" y1="8" x2="45" y2="82" stroke="white" stroke-width="2.5" opacity="0.5"/>
+            <rect x="38" y="60" width="14" height="10" fill="white" rx="3"/>
+            <rect x="41" y="68" width="8" height="12" fill="white"/>
+          </svg>
+        </div>
+        <div class="ride-card-body">
+          <div class="ride-zone" style="color:#1AACF0">Cloud Harbor</div>
+          <div class="ride-name">Cloud Swing</div>
+          <p class="ride-desc">Soar 120 feet above the park on this breathtaking rotating swing ride. Pure sky. Pure breeze. Pure joy.</p>
+          <div class="ride-stats">
+            <span class="ride-stat">⭐ Thrilling</span>
+            <span class="ride-stat">⏱ 3 min</span>
+            <span class="ride-stat">📏 42"</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ride-card reveal" style="transition-delay:0.15s">
+        <div class="ride-card-top" style="background:linear-gradient(135deg,#6C3EB5,#A163E0)">
+          <img class="ride-img" src="images/ride3.jpg" alt="Lightning Drop ride" loading="lazy">
+          <svg viewBox="0 0 90 90" fill="none">
+            <rect x="38" y="10" width="14" height="50" fill="white" rx="4" opacity="0.9"/>
+            <rect x="30" y="55" width="30" height="16" fill="#FFD63F" rx="5"/>
+            <path d="M28 10 L45 2 L62 10" fill="white" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="ride-card-body">
+          <div class="ride-zone" style="color:#A163E0">Thunder Loop District</div>
+          <div class="ride-name">Lightning Drop</div>
+          <p class="ride-desc">200 feet straight up. Then freefall. Lightning Drop delivers the ultimate stomach-in-throat vertical rush.</p>
+          <div class="ride-stats">
+            <span class="ride-stat">🔥 Extreme</span>
+            <span class="ride-stat">⏱ 90 sec</span>
+            <span class="ride-stat">📏 52"</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ride-card reveal" style="transition-delay:0.2s">
+        <div class="ride-card-top" style="background:linear-gradient(135deg,#F0187A,#FF6EB3)">
+          <img class="ride-img" src="images/ride4.jpg" alt="Comet Racers" loading="lazy">
+          <svg viewBox="0 0 90 90" fill="none">
+            <path d="M10 55 Q15 30 30 35 Q40 38 45 30 Q55 15 70 35 L75 55" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M18 55 Q23 35 38 38 Q48 40 53 32 Q63 20 78 40 L82 55" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="45" cy="57" r="5" fill="white"/>
+            <circle cx="72" cy="57" r="5" fill="#FFD63F"/>
+          </svg>
+        </div>
+        <div class="ride-card-body">
+          <div class="ride-zone" style="color:#F0187A">Thunder Loop District</div>
+          <div class="ride-name">Comet Racers</div>
+          <p class="ride-desc">Two tracks, one winner. Race side-by-side at full throttle on this dual-track racing coaster. Ready to win?</p>
+          <div class="ride-stats">
+            <span class="ride-stat">⭐ High</span>
+            <span class="ride-stat">⏱ 2.5 min</span>
+            <span class="ride-stat">📏 46"</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ride-card reveal" style="transition-delay:0.25s">
+        <div class="ride-card-top" style="background:linear-gradient(135deg,#22C55E,#6EE7A0)">
+          <img class="ride-img" src="images/ride5.jpg" alt="Zephyr Glide" loading="lazy">
+          <svg viewBox="0 0 90 90" fill="none">
+            <path d="M10 55 Q30 30 50 40 Q65 48 80 30" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>
+            <ellipse cx="50" cy="42" rx="18" ry="8" fill="rgba(255,255,255,0.25)" transform="rotate(-15 50 42)"/>
+            <circle cx="80" cy="30" r="6" fill="white"/>
+          </svg>
+        </div>
+        <div class="ride-card-body">
+          <div class="ride-zone" style="color:#22C55E">Cloud Harbor</div>
+          <div class="ride-name">Zephyr Glide</div>
+          <p class="ride-desc">Float above it all on this serene scenic air ride. Glide over the treetops, breathe in the breeze, take in every view.</p>
+          <div class="ride-stats">
+            <span class="ride-stat">🌿 Gentle</span>
+            <span class="ride-stat">⏱ 5 min</span>
+            <span class="ride-stat">📏 All ages</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section id="map">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Find Your Way</div>
+      <h2 class="section-title">Explore the <span class="hi">Park Zones</span></h2>
+      <p class="section-sub">Five distinct worlds, each with its own vibe, rides, and magic. Pick your adventure.</p>
+    </div>
+    <div class="map-wrap">
+      <div class="map-zones reveal">
+        <div class="zone-item z1">
+          <div class="zone-dot">🎫</div>
+          <div class="zone-info">
+            <h4>Sky Plaza</h4>
+            <p>Entry hub · Tickets · Info · First Glimpse</p>
+          </div>
+        </div>
+        <div class="zone-item z2">
+          <div class="zone-dot">⚡</div>
+          <div class="zone-info">
+            <h4>Thunder Loop District</h4>
+            <p>High-thrill rides · Skybreaker · Lightning Drop</p>
+          </div>
+        </div>
+        <div class="zone-item z3">
+          <div class="zone-dot">☁️</div>
+          <div class="zone-info">
+            <h4>Cloud Harbor</h4>
+            <p>Family rides · Cloud Swing · Zephyr Glide</p>
+          </div>
+        </div>
+        <div class="zone-item z4">
+          <div class="zone-dot">🎮</div>
+          <div class="zone-info">
+            <h4>Neon Midway</h4>
+            <p>Games · Arcades · Prizes · Lights</p>
+          </div>
+        </div>
+        <div class="zone-item z5">
+          <div class="zone-dot">🌅</div>
+          <div class="zone-info">
+            <h4>Sunset Gardens</h4>
+            <p>Food · Rest · Relaxation · Live Music</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="map-visual reveal" style="transition-delay:0.15s">
+        <svg viewBox="0 0 560 420" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="background:linear-gradient(160deg,#D9F3FF,#EBF6FF)">
+          <!-- Sky Plaza -->
+          <ellipse cx="280" cy="200" rx="55" ry="55" fill="#1AACF0" opacity="0.18"/>
+          <ellipse cx="280" cy="200" rx="38" ry="38" fill="#1AACF0" opacity="0.25"/>
+          <text x="280" y="195" text-anchor="middle" font-family="Baloo 2" font-weight="800" font-size="12" fill="#0B84CC">SKY</text>
+          <text x="280" y="210" text-anchor="middle" font-family="Baloo 2" font-weight="800" font-size="12" fill="#0B84CC">PLAZA</text>
+          <text x="280" y="225" text-anchor="middle" font-size="14">🎫</text>
+
+          <!-- Thunder Loop District -->
+          <ellipse cx="130" cy="120" rx="95" ry="70" fill="#FF6230" opacity="0.14"/>
+          <ellipse cx="130" cy="120" rx="72" ry="52" fill="#FF6230" opacity="0.2"/>
+          <text x="130" y="112" text-anchor="middle" font-family="Baloo 2" font-weight="800" font-size="10" fill="#C84A1E">THUNDER LOOP</text>
+          <text x="130" y="126" text-anchor="middle" font-family="Baloo 2" font-weight="800" font-size="10" fill="#C84A1E">DISTRICT</text>
+          <text x="130" y="142" text-anchor="middle" font-size="14">⚡</text>
+
+          <!-- Cloud Harbor -->
+          <ellipse cx="430" cy="130" rx="90" ry="70" fill="#1AACF0" opacity="0.12"/>
+          <ellipse cx="430" cy="130" rx="68" ry="52" fill="#4DB6E8" opacity="0.2"/>
+          <text x="430" y="122" text-anchor="middle" font-family="Baloo 2" font-weight="800" font-size="10" fill="#0B6D99">CLOUD</text>
+          <text x="430" y="136" text-anchor="middle" font-family="Baloo 2" font-weight="800" font-size="10" fill="#0B6D99">HARBOR</text>
+          <text x="430" y="152" text-anchor="middle" font-size="14">☁️</text>
+
+          <!-- Neon Midway -->
+          <ellipse cx="140" cy="300" rx="90" ry="68" fill="#F0187A" opacity="0.12"/>
+          <ellipse cx="140" cy="300" rx="68" ry="50" fill="#F0187A" opacity="0.2"/>
+          <text x="140" y="293" text-anchor="middle" font-family="Baloo 2" font-weight="800" font-size="10" fill="#A3105A">NEON</text>
+          <text x="140" y="307" text-anchor="middle" font-family="Baloo 2" font-weight="800" font-size="10" fill="#A3105A">MIDWAY</text>
+          <text x="140" y="323" text-anchor="middle" font-size="14">🎮</text>
+
+          <!-- Sunset Gardens -->
+          <ellipse cx="430" cy="310" rx="95" ry="68" fill="#F7A84A" opacity="0.15"/>
+          <ellipse cx="430" cy="310" rx="70" ry="50" fill="#F7A84A" opacity="0.22"/>
+          <text x="430" y="302" text-anchor="middle" font-family="Baloo 2" font-weight="800" font-size="10" fill="#B06B0A">SUNSET</text>
+          <text x="430" y="316" text-anchor="middle" font-family="Baloo 2" font-weight="800" font-size="10" fill="#B06B0A">GARDENS</text>
+          <text x="430" y="332" text-anchor="middle" font-size="14">🌅</text>
+
+          <!-- Paths -->
+          <line x1="240" y1="185" x2="200" y2="155" stroke="#1AACF0" stroke-width="2.5" stroke-dasharray="6,4" opacity="0.5"/>
+          <line x1="320" y1="185" x2="365" y2="158" stroke="#1AACF0" stroke-width="2.5" stroke-dasharray="6,4" opacity="0.5"/>
+          <line x1="255" y1="215" x2="200" y2="268" stroke="#1AACF0" stroke-width="2.5" stroke-dasharray="6,4" opacity="0.5"/>
+          <line x1="305" y1="215" x2="365" y2="268" stroke="#1AACF0" stroke-width="2.5" stroke-dasharray="6,4" opacity="0.5"/>
+
+          <!-- Entry arrow -->
+          <path d="M280 380 L280 350" stroke="#1AACF0" stroke-width="3" stroke-linecap="round"/>
+          <path d="M270 356 L280 346 L290 356" fill="#1AACF0"/>
+          <text x="280" y="398" text-anchor="middle" font-family="Baloo 2" font-weight="700" font-size="11" fill="#0B84CC">MAIN ENTRANCE</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GAMES -->
+<section id="games">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Neon Midway</div>
+      <h2 class="section-title" style="color:#fff">Play. Win. <span style="color:var(--magenta)">Repeat.</span></h2>
+      <p class="section-sub">The Neon Midway lights up at night. Test your aim, beat the game, take home the glory.</p>
+    </div>
+    <div class="games-grid">
+      <div class="game-card reveal" style="transition-delay:0.05s">
+        <div class="game-icon">🎯</div>
+        <h3>Ring Toss</h3>
+        <p>Three rings, infinite glory. Land 'em all and walk away with the grand plush.</p>
+      </div>
+      <div class="game-card reveal" style="transition-delay:0.1s">
+        <div class="game-icon">🎈</div>
+        <h3>Balloon Darts</h3>
+        <p>Sharp aim, sharp rewards. Pop the right balloons and claim your prize.</p>
+      </div>
+      <div class="game-card reveal" style="transition-delay:0.15s">
+        <div class="game-icon">🕹️</div>
+        <h3>Arcade Zone</h3>
+        <p>Dozens of digital games, racing sims, and crane machines all under neon glow.</p>
+      </div>
+      <div class="game-card reveal" style="transition-delay:0.2s">
+        <div class="game-icon">🏆</div>
+        <h3>Prize Booths</h3>
+        <p>Giant plush animals, collectibles, and limited-edition Skylark merch. Win big.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKETS -->
+<section id="tickets">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-label" style="justify-content:center">Pricing</div>
+      <h2 class="section-title">Get Your <span class="ho">Tickets</span></h2>
+      <p class="section-sub" style="margin:0 auto">No ride left behind. Pick the pass that fits your adventure style.</p>
+    </div>
+    <div class="tickets-grid">
+
+      <div class="ticket-card reveal" style="transition-delay:0.05s">
+        <div class="ticket-icon" style="background:rgba(26,172,240,0.1);font-size:1.6rem">🎫</div>
+        <div class="ticket-name">General Admission</div>
+        <div class="ticket-price"><sup>$</sup>49</div>
+        <div class="ticket-desc">Park entry + select attractions</div>
+        <ul class="ticket-perks">
+          <li>Full park access</li>
+          <li>Midway games (pay-per-play)</li>
+          <li>Select family rides</li>
+          <li>Event access</li>
+        </ul>
+        <a href="#" class="btn btn-sky">Get Pass</a>
+      </div>
+
+      <div class="ticket-card featured reveal" style="transition-delay:0.1s">
+        <div class="ticket-icon" style="background:rgba(255,98,48,0.1);font-size:1.6rem">⚡</div>
+        <div class="ticket-name">Unlimited Ride Wristband</div>
+        <div class="ticket-price"><sup>$</sup>69</div>
+        <div class="ticket-desc">Ride all day, every ride, no limits</div>
+        <ul class="ticket-perks">
+          <li>All-ride access</li>
+          <li>Skybreaker + Lightning Drop</li>
+          <li>Comet Racers + Cloud Swing</li>
+          <li>Unlimited re-rides</li>
+        </ul>
+        <a href="#" class="btn btn-primary">Get Wristband</a>
+      </div>
+
+      <div class="ticket-card reveal" style="transition-delay:0.15s">
+        <div class="ticket-icon" style="background:rgba(240,24,122,0.08);font-size:1.6rem">🚀</div>
+        <div class="ticket-name">Fast Pass Add-on</div>
+        <div class="ticket-price"><sup>$</sup>30</div>
+        <div class="ticket-desc">Skip the line on every major ride</div>
+        <ul class="ticket-perks">
+          <li>Express lane entry</li>
+          <li>All 5 signature rides</li>
+          <li>Add to any pass</li>
+          <li>Worth every penny</li>
+        </ul>
+        <a href="#" class="btn btn-sky">Add On</a>
+      </div>
+
+      <div class="ticket-card reveal" style="transition-delay:0.2s">
+        <div class="ticket-icon" style="background:rgba(255,214,63,0.15);font-size:1.6rem">👨‍👩‍👧‍👦</div>
+        <div class="ticket-name">Family Pack (4)</div>
+        <div class="ticket-price"><sup>$</sup>160</div>
+        <div class="ticket-desc">Best value for the whole squad</div>
+        <ul class="ticket-perks">
+          <li>4 Unlimited Wristbands</li>
+          <li>Save $116 vs individual</li>
+          <li>Priority family entry</li>
+          <li>Free ride guide map</li>
+        </ul>
+        <a href="#" class="btn btn-primary">Get Family Pack</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOD -->
+<section id="food">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Sunset Gardens</div>
+      <h2 class="section-title">Fuel the <span class="ho">Adventure</span></h2>
+      <p class="section-sub">Classic park bites, fresh flavors, and a place to kick back and recharge.</p>
+    </div>
+    <div class="food-grid">
+      <div class="food-card reveal" style="transition-delay:0.05s">
+        <span class="icon">🌭</span>
+        <h4>Skydog Stand</h4>
+        <p>Classic hot dogs loaded your way</p>
+      </div>
+      <div class="food-card reveal" style="transition-delay:0.08s">
+        <span class="icon">🍕</span>
+        <h4>Cloud Slice</h4>
+        <p>Wood-fired pizza by the slice</p>
+      </div>
+      <div class="food-card reveal" style="transition-delay:0.11s">
+        <span class="icon">🍦</span>
+        <h4>Swirl Station</h4>
+        <p>Soft-serve, slushies & fro-yo</p>
+      </div>
+      <div class="food-card reveal" style="transition-delay:0.14s">
+        <span class="icon">🍔</span>
+        <h4>Thunder Burgers</h4>
+        <p>Smash burgers with crispy fries</p>
+      </div>
+      <div class="food-card reveal" style="transition-delay:0.17s">
+        <span class="icon">🍿</span>
+        <h4>Midway Snacks</h4>
+        <p>Popcorn, pretzels, cotton candy</p>
+      </div>
+      <div class="food-card reveal" style="transition-delay:0.2s">
+        <span class="icon">🧃</span>
+        <h4>Refreshment Bars</h4>
+        <p>Cold drinks, smoothies, lemonade</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Shows & Events</div>
+      <h2 class="section-title">The Park Never <span class="hi">Sleeps</span></h2>
+      <p class="section-sub">Live shows, dazzling nights, and seasonal spectacles that keep the sky alive.</p>
+    </div>
+    <div class="events-grid">
+      <div class="event-card reveal" style="transition-delay:0.05s">
+        <div class="event-banner" style="background:linear-gradient(135deg,#0C1A3A,#1567C2)">🌟</div>
+        <div class="event-body">
+          <span class="event-tag">Nightly</span>
+          <h3>Skylark Night Spectacle</h3>
+          <p>Every night at 9pm — drones, lights, and a sky-painting firework show that closes the day with a bang.</p>
+        </div>
+      </div>
+      <div class="event-card reveal" style="transition-delay:0.1s">
+        <div class="event-banner" style="background:linear-gradient(135deg,#8E44AD,#C674E8)">🎭</div>
+        <div class="event-body">
+          <span class="event-tag">Weekends</span>
+          <h3>Midway Live Stage</h3>
+          <p>Street performers, acrobats, and music acts light up the Neon Midway every Saturday and Sunday.</p>
+        </div>
+      </div>
+      <div class="event-card reveal" style="transition-delay:0.15s">
+        <div class="event-banner" style="background:linear-gradient(135deg,#FF6230,#FFD63F)">🎃</div>
+        <div class="event-body">
+          <span class="event-tag">Seasonal</span>
+          <h3>Skylark Nights Festival</h3>
+          <p>Our signature seasonal event transforms the park with themed lights, exclusive rides, and special menus.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-label" style="justify-content:center">Gallery</div>
+      <h2 class="section-title">Your <span class="hi">Moments</span></h2>
+    </div>
+    <div class="gallery-grid reveal" style="transition-delay:0.1s">
+      <div class="gallery-item">
+        <img src="images/gallery1.jpg" alt="Skylark park aerial view" loading="lazy">
+        <div class="gallery-overlay"><span>View →</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="images/gallery2.jpg" alt="Happy park guests" loading="lazy">
+        <div class="gallery-overlay"><span>View →</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="images/gallery3.jpg" alt="Neon Midway at night" loading="lazy">
+        <div class="gallery-overlay"><span>View →</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="images/gallery4.jpg" alt="Sunset over the park" loading="lazy">
+        <div class="gallery-overlay"><span>View →</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="images/gallery5.jpg" alt="Prize winner" loading="lazy">
+        <div class="gallery-overlay"><span>View →</span></div>
+      </div>
+      <div class="gallery-item">
+        <img src="images/gallery6.jpg" alt="Night Spectacle fireworks" loading="lazy">
+        <div class="gallery-overlay"><span>View →</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-label" style="justify-content:center">FAQ</div>
+      <h2 class="section-title">Got <span class="hi">Questions?</span></h2>
+    </div>
+    <div class="faq-list reveal" style="transition-delay:0.1s">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          What are the park's opening hours?
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 8l5 5 5-5"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Skylark Adventure Park is open daily from 10am to 10pm. On Fridays and Saturdays we stay open until midnight. Seasonal events may have extended hours.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Is parking included with admission?
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 8l5 5 5-5"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Parking is $15 per vehicle and is available adjacent to the main entrance at Sky Plaza. Premium front-row spots are $25. Ride-share drop-off is free and available at Gate B.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Can I bring food and drinks into the park?
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 8l5 5 5-5"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Outside food and non-alcoholic drinks in sealed containers are welcome. We also have dozens of dining and snack options throughout the park if you'd rather fuel up on site.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Are there height requirements for rides?
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 8l5 5 5-5"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Yes — our thrill rides have minimum height requirements for safety. Skybreaker (48"), Lightning Drop (52"), Comet Racers (46"), Cloud Swing (42"). Zephyr Glide and all Cloud Harbor family rides are open to all ages.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Do tickets expire? Can I use them another day?
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 8l5 5 5-5"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Standard tickets are valid for the date selected at purchase. If you'd like to reschedule, contact us at least 24 hours before your visit and we'll do our best to move it. Fast Pass Add-ons are linked to the ticket date and cannot be transferred separately.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Is Skylark accessible for guests with disabilities?
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 8l5 5 5-5"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Absolutely. Skylark is fully ADA-compliant with accessible pathways, rest areas, and ride accommodations. We offer Accessibility Passes at the info desk in Sky Plaza for guests who need additional support.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLAN VISIT -->
+<section id="plan">
+  <div class="container">
+    <div class="reveal" style="text-align:center">
+      <div class="section-label" style="justify-content:center">Plan Your Visit</div>
+      <h2 class="section-title">Ready to <span style="color:var(--yellow)">Take Off?</span></h2>
+      <p class="section-sub" style="margin:0 auto">Everything you need to make your Skylark day legendary.</p>
+    </div>
+    <div class="plan-grid">
+      <div class="plan-card reveal" style="transition-delay:0.05s">
+        <div class="icon">📍</div>
+        <h4>Location</h4>
+        <p>1 Skylark Blvd, Clearview, FL 32801 — 20 min from downtown</p>
+      </div>
+      <div class="plan-card reveal" style="transition-delay:0.08s">
+        <div class="icon">🕙</div>
+        <h4>Hours</h4>
+        <p>Daily 10am–10pm · Fri & Sat until midnight · Year-round</p>
+      </div>
+      <div class="plan-card reveal" style="transition-delay:0.11s">
+        <div class="icon">🚗</div>
+        <h4>Parking</h4>
+        <p>On-site parking $15 · Premium $25 · Free ride-share drop-off</p>
+      </div>
+      <div class="plan-card reveal" style="transition-delay:0.14s">
+        <div class="icon">📞</div>
+        <h4>Contact</h4>
+        <p>(407) 555-SKY1 · hello@skylarkpark.com · Chat available 9am–9pm</p>
+      </div>
+    </div>
+    <div class="plan-cta">
+      <a href="#tickets" class="btn btn-primary">🎟 Buy Tickets Now</a>
+      <a href="#map" class="btn btn-outline">View Park Map</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">Sky<span>lark</span> Adventure Park</div>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Accessibility</a>
+      <a href="#">Press</a>
+      <a href="#">Careers</a>
+    </div>
+    <div class="footer-copy">© 2026 Skylark Adventure Park. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // FAQ accordion
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    const answer = item.querySelector('.faq-a');
+    const isOpen = item.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-a').style.maxHeight = null;
+    });
+    // Open clicked
+    if (!isOpen) {
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  }
+
+  // Zone hover highlight on map
+  document.querySelectorAll('.zone-item').forEach((item, i) => {
+    item.addEventListener('mouseenter', () => {
+      item.style.background = '#EBF8FF';
+    });
+    item.addEventListener('mouseleave', () => {
+      item.style.background = '#fff';
+    });
+  });
+</script>
+
+</body>
+</html>

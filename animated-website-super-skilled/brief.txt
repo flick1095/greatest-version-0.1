@@ -1,0 +1,276 @@
+==============================================================
+SITE: Skylark Adventure Park
+==============================================================
+
+ROLE / CONTEXT
+--------------
+Role: You are Lead Experience Architect for immersive theme parks.
+Context: You are designing the digital presence for Skylark Adventure Park,
+a vibrant, high-energy amusement park built on the idea of flight, motion,
+and skybound imagination. The park blends classic carnival charm with
+futuristic attractions.
+
+You have commissioned a highly talented Web Designer, Anthony, to create
+the Skylark Adventure Park website — a place where visitors can explore
+rides, games, food, and plan their day.
+
+The park is divided into themed zones:
+
+- Sky Plaza (entry hub, tickets, information)
+- Thunder Loop District (high-thrill rides)
+- Cloud Harbor (family rides + scenic attractions)
+- Neon Midway (games, arcades, prizes)
+- Sunset Gardens (food, rest, and relaxation)
+
+All visuals should feel bright, airy, kinetic, and joyful — evoking
+movement, wind, and open skies.
+
+Render environments in a stylized semi-real 3D look — soft lighting,
+clean materials, vibrant colors, and subtle motion blur for energy.
+
+
+BUILD STACK
+-----------
+1. Stitch (layout generation)
+2. UI UX Pro Max (style / palette / typography selection)
+3. Firecrawl (reference scrape)
+4. Nano Banana 2 (hero + feature imagery)
+5. Brand skill (voice + messaging)
+6. Design skill (logo, icons, OG image)
+7. Design System skill (token architecture)
+8. UI Styling skill (shadcn/ui interactive components)
+
+
+PURPOSE
+-------
+A fun, modern amusement park website where users can:
+- Discover rides and attractions
+- Explore games and win prizes
+- View a park map
+- Purchase tickets and plan their visit
+
+
+==============================================================
+STEP 2 — BRAND VOICE (for `brand` skill)
+==============================================================
+
+Voice archetype: The Energetic Guide — part enthusiastic ride operator,
+part friendly travel host.
+
+Tone dimensions (scale 1–5):
+- Formal ↔ Casual:        1 (very casual)
+- Serious ↔ Playful:      5 (playful)
+- Reserved ↔ Expressive:  5 (highly expressive)
+- Modern ↔ Timeless:      3 (modern with nostalgic hints)
+
+Voice rules:
+- Speak directly to the visitor ("you")
+- Keep sentences punchy and energetic
+- Use motion-based language: soar, spin, race, glide
+- Avoid corporate or overly polished tone
+
+Words to use:   soar, spin, thrill, glide, race, sky, spark, bright,
+                adventure, loop, rush, breeze
+Words to avoid: synergy, premium, exclusive, enterprise, solution
+
+Messaging framework:
+- Tagline (≤7 words):        "Ride the Sky. Feel the Rush."
+- Value prop (≤20 words):    "A high-energy amusement park packed with
+                             thrilling rides, classic games, and sky-high fun."
+- Key phrases:
+    "Chase the skyline"
+    "Let the adventure take off"
+    "Spin, soar, repeat"
+    "Win big on the midway"
+
+
+==============================================================
+STEP 3 — DESIGN SYSTEM (for `ui-ux-pro-max` + `design-system`)
+==============================================================
+
+Style keywords: bright, airy, kinetic, playful, modern, colorful,
+                smooth, glowing, open, energetic
+
+COLOR SYSTEM:
+- Primary:         electric sky blue
+- Secondary:       sunset orange
+- Tertiary:        neon magenta
+- Accent:          bright yellow (lights / highlights)
+- Surface-base:    soft white
+- Surface-raised:  light sky gradient
+- Ink:             deep navy (NOT black)
+
+TYPOGRAPHY:
+- Display:   bold rounded sans-serif (playful, high impact)
+- Body:      clean geometric sans-serif
+- Accent:    italic or script for motion emphasis
+
+SPACING & LAYOUT:
+- 12-column responsive grid
+- Large open sections (lots of white space)
+- Overlapping elements for motion feel
+
+RADII:
+- sm 10px | md 18px | lg 28px | xl 36px | pill 9999px
+
+ELEVATION:
+- Soft glowing shadows instead of heavy drops
+
+MOTION LANGUAGE:
+- Fast, smooth transitions (200–400ms)
+- Hover: slight lift + glow
+- Sections slide/fade in like moving clouds
+
+
+==============================================================
+STEP 4 — REFERENCE SCRAPE (for Firecrawl)
+==============================================================
+
+Primary Reference URL:
+https://www.universalorlando.com/web/en/us/epic-universe/worlds/how-to-train-your-dragon-isle-of-berk
+
+Backup/Support References:
+- https://media.universalparksusa.com/epic-universe/worlds/how-to-train-your-dragon-isle-of-berk/
+- https://orlandoinformer.com/universal/how-to-train-your-dragon-isle-of-berk/
+
+Scrape Goals:
+- Extract how major theme parks structure immersive “world” storytelling
+- Identify how rides, attractions, and environments are described
+- Capture tone used for excitement, discovery, and exploration
+- Study how sections are broken into attractions, dining, and experiences
+
+Key Insights to Emulate:
+- Highly immersive world-building (feels like stepping into a story)
+- Clear attraction hierarchy (headline ride → supporting experiences)
+- Strong emotional language around adventure and exploration
+- Use of “live in the world” phrasing instead of just listing features
+
+Important Notes:
+- DO NOT copy theme, characters, or dragon/fantasy IP concepts
+- DO NOT replicate layout exactly
+- ONLY borrow:
+  - structure of attraction storytelling
+  - descriptive language intensity
+  - how experiences are grouped and presented
+
+Apply these learnings to:
+Skylark Adventure Park — a sky-themed amusement park with rides,
+games, and open-air energy (NOT an IP-based world)
+
+Goal:
+Make Skylark feel as immersive and exciting as a world-class theme
+park destination while staying completely original.
+
+
+==============================================================
+STEP 5 — SECTIONS & LAYOUT (for Stitch)
+==============================================================
+
+1. Hero
+   - Large skyline view of park
+   - Tagline + 2 CTAs ("Buy Tickets" / "Explore Rides")
+
+2. Featured Rides
+   - “Skybreaker” — massive looping roller coaster
+   - “Cloud Swing” — rotating swing ride high above park
+   - “Lightning Drop” — vertical drop tower
+   - “Comet Racers” — dual-track racing coaster
+   - “Zephyr Glide” — smooth scenic air ride
+
+3. Park Map
+   - Interactive map with zones:
+     Sky Plaza, Thunder Loop, Cloud Harbor,
+     Neon Midway, Sunset Gardens
+
+4. Games & Midway
+   - Ring toss
+   - Balloon darts
+   - Arcade zone
+   - Prize booths (giant plush, collectibles)
+
+5. Ticket Pricing
+   - General Admission: $49
+   - Unlimited Ride Wristband: $69
+   - Fast Pass Add-on: $30
+   - Family Pack (4): $160
+
+6. Food & Refreshments
+   - Snacks, meals, seating zones
+
+7. Events & Shows
+   - Night shows, performances, seasonal events
+
+8. Gallery
+9. FAQ
+10. Contact / Plan Visit
+
+
+==============================================================
+STEP 6 — IMAGERY (for Nano Banana 2)
+==============================================================
+
+Global art direction:
+Bright amusement park, glowing lights, blue skies, motion blur,
+happy crowds, colorful rides, cinematic lighting.
+
+- Hero: aerial skyline amusement park
+- Rides: action shots mid-motion
+- Map: illustrated park layout
+- Games: neon midway booths
+- Food: classic snacks
+- Gallery: candid fun moments
+
+
+==============================================================
+STEP 7 — BRAND ASSETS (for `design` skill)
+==============================================================
+
+LOGO:
+- Wing + roller coaster hybrid skyline
+
+ICON SET:
+- ticket, coaster, map, game, food, prize, lightning, location
+
+OG CARD:
+- skyline + tagline
+
+
+==============================================================
+STEP 8 — INTERACTIVE COMPONENTS (shadcn/ui)
+==============================================================
+
+- Carousel (rides/gallery)
+- Tabs (categories)
+- Accordion (FAQ)
+- Dialog (details)
+- Cards (content)
+- Tooltip (info)
+- Badge (NEW/POPULAR)
+
+Interactions:
+- Hover glow + lift
+- Smooth animations
+
+
+==============================================================
+STEP 9 — ASSEMBLE & ANIMATE
+==============================================================
+
+RESPONSIVE:
+- 640 / 1024 / 1280
+
+PERFORMANCE:
+- Lazy loading
+- Optimized images
+
+SEO:
+- Title: Skylark Adventure Park — Ride the Sky
+
+ACCESSIBILITY:
+- Alt text
+- Keyboard nav
+
+ANIMATION:
+- Hero fade + rise
+- Scroll reveals
+- Smooth UI transitions
