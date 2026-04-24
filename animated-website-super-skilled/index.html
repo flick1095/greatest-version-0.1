@@ -143,187 +143,259 @@
       position: relative;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
       overflow: hidden;
-      padding: 100px 2rem 4rem;
+      background: var(--navy);
     }
 
-    .hero-sky {
+    /* Photo — right bleed */
+    .hero-photo {
       position: absolute;
       inset: 0;
-      background-image:
-        linear-gradient(180deg,
-          rgba(11,43,107,0.72) 0%,
-          rgba(21,103,194,0.55) 18%,
-          rgba(43,188,247,0.28) 40%,
-          rgba(125,216,247,0.18) 62%,
-          rgba(185,235,255,0.22) 80%,
-          rgba(255,215,176,0.55) 92%,
-          rgba(255,174,112,0.72) 100%),
-        url('images/hero.jpg');
-      background-size: cover;
-      background-position: center;
+      background: url('images/hero.jpg') center/cover no-repeat;
       z-index: 0;
     }
-
-    /* Sun */
-    .hero-sun {
-      position: absolute;
-      bottom: 18%;
-      right: 12%;
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #FFF4A0 0%, #FFD63F 50%, #FFAE30 100%);
-      box-shadow: 0 0 60px 30px rgba(255,214,63,0.6), 0 0 120px 60px rgba(255,180,50,0.3);
-      animation: sun-pulse 4s ease-in-out infinite;
-      z-index: 1;
-    }
-    @keyframes sun-pulse {
-      0%, 100% { box-shadow: 0 0 60px 30px rgba(255,214,63,0.6), 0 0 120px 60px rgba(255,180,50,0.3); }
-      50% { box-shadow: 0 0 80px 40px rgba(255,214,63,0.8), 0 0 160px 80px rgba(255,180,50,0.4); }
-    }
-
-    /* Clouds */
-    .cloud-layer { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
-    .cloud {
-      position: absolute;
-      background: rgba(255,255,255,0.9);
-      border-radius: 50px;
-      filter: blur(2px);
-    }
-    .cloud::before, .cloud::after {
+    .hero-photo::after {
       content: '';
       position: absolute;
-      background: rgba(255,255,255,0.9);
-      border-radius: 50%;
-    }
-    .c1 { width: 180px; height: 55px; top: 18%; left: -200px; animation: drift 22s linear infinite; }
-    .c1::before { width: 70px; height: 70px; top: -35px; left: 25px; }
-    .c1::after { width: 90px; height: 90px; top: -45px; left: 65px; }
-
-    .c2 { width: 130px; height: 40px; top: 28%; left: -150px; animation: drift 32s linear 8s infinite; opacity: 0.75; }
-    .c2::before { width: 55px; height: 55px; top: -28px; left: 15px; }
-    .c2::after { width: 70px; height: 70px; top: -35px; left: 48px; }
-
-    .c3 { width: 220px; height: 65px; top: 10%; left: -250px; animation: drift 26s linear 4s infinite; opacity: 0.85; }
-    .c3::before { width: 85px; height: 85px; top: -42px; left: 30px; }
-    .c3::after { width: 110px; height: 110px; top: -55px; left: 80px; }
-
-    .c4 { width: 100px; height: 32px; top: 35%; left: -120px; animation: drift 40s linear 12s infinite; opacity: 0.6; }
-    .c4::before { width: 40px; height: 40px; top: -20px; left: 10px; }
-    .c4::after { width: 55px; height: 55px; top: -28px; left: 36px; }
-
-    @keyframes drift {
-      from { transform: translateX(0); }
-      to { transform: translateX(calc(100vw + 400px)); }
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(12,26,58,0.97) 0%, rgba(12,26,58,0.82) 40%, rgba(12,26,58,0.35) 65%, rgba(12,26,58,0.05) 100%),
+        linear-gradient(180deg, rgba(12,26,58,0.4) 0%, transparent 30%, transparent 70%, rgba(12,26,58,0.6) 100%);
     }
 
-    /* Park silhouette */
-    .hero-park {
+    /* Speed streaks */
+    .hero-streaks {
       position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 280px;
-      z-index: 2;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .streak {
+      position: absolute;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, rgba(26,172,240,0.5), transparent);
+      border-radius: 1px;
+      animation: streak-fly 2.5s ease-in-out infinite;
+      opacity: 0;
+    }
+    .streak:nth-child(1) { width: 280px; top: 22%; right: 10%; animation-delay: 0s; }
+    .streak:nth-child(2) { width: 180px; top: 38%; right: 20%; animation-delay: 0.6s; }
+    .streak:nth-child(3) { width: 340px; top: 55%; right: 5%;  animation-delay: 1.1s; }
+    .streak:nth-child(4) { width: 140px; top: 68%; right: 25%; animation-delay: 1.8s; }
+    .streak:nth-child(5) { width: 220px; top: 14%; right: 30%; animation-delay: 0.9s; }
+    @keyframes streak-fly {
+      0%   { opacity: 0; transform: translateX(60px); }
+      20%  { opacity: 1; }
+      80%  { opacity: 1; }
+      100% { opacity: 0; transform: translateX(-120px); }
     }
 
-    .hero-content {
+    /* Main content */
+    .hero-body {
       position: relative;
-      z-index: 3;
-      max-width: 780px;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 120px 0 80px 0;
+    }
+    .hero-inner {
+      padding: 0 4rem 0 6rem;
+      max-width: 640px;
     }
 
-    .hero-badge {
+    .hero-location {
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      background: rgba(255,255,255,0.2);
-      backdrop-filter: blur(8px);
-      border: 1.5px solid rgba(255,255,255,0.4);
-      color: #fff;
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      padding: 0.35rem 1rem;
-      border-radius: var(--r-pill);
-      margin-bottom: 1.5rem;
-      animation: hero-fade-up 0.8s ease both;
+      color: var(--sky);
+      margin-bottom: 1.8rem;
+      animation: h-up 0.7s ease both;
+    }
+    .hero-location::before {
+      content: '';
+      display: inline-block;
+      width: 28px; height: 2px;
+      background: var(--sky);
+      border-radius: 1px;
     }
 
-    .hero-title {
+    .hero-line1 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 0.1rem;
+      animation: h-up 0.7s ease 0.1s both;
+    }
+
+    .hero-line2 {
       font-family: var(--font-display);
       font-weight: 800;
-      font-size: clamp(3rem, 8vw, 6rem);
-      line-height: 1.05;
+      font-size: clamp(5rem, 13vw, 10rem);
+      line-height: 0.9;
       color: #fff;
-      text-shadow: 0 4px 24px rgba(0,0,0,0.25);
-      margin-bottom: 0.5rem;
-      animation: hero-fade-up 0.8s ease 0.15s both;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.6rem;
+      animation: h-up 0.7s ease 0.2s both;
     }
-    .hero-title .accent { color: var(--yellow); }
+    .hero-line2 .dot { color: var(--sky); }
+
+    .hero-line3 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2.8rem, 6.5vw, 5rem);
+      line-height: 1;
+      color: var(--orange);
+      letter-spacing: -0.01em;
+      margin-bottom: 2rem;
+      animation: h-up 0.7s ease 0.3s both;
+    }
 
     .hero-tagline {
       font-family: var(--font-script);
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      color: rgba(255,255,255,0.9);
-      margin-bottom: 2.5rem;
-      animation: hero-fade-up 0.8s ease 0.3s both;
+      font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 2.4rem;
+      animation: h-up 0.7s ease 0.4s both;
     }
 
     .hero-ctas {
       display: flex;
       gap: 1rem;
-      justify-content: center;
       flex-wrap: wrap;
-      animation: hero-fade-up 0.8s ease 0.45s both;
+      animation: h-up 0.7s ease 0.5s both;
+      margin-bottom: 2.8rem;
     }
-    .hero-ctas .btn { font-size: 1.05rem; padding: 0.85rem 2rem; }
+    .hero-ctas .btn { font-size: 1rem; padding: 0.85rem 1.8rem; }
 
-    @keyframes hero-fade-up {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+    .hero-quick-stats {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      animation: h-up 0.7s ease 0.6s both;
+    }
+    .hqs {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .hqs-num {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: #fff;
+      line-height: 1;
+    }
+    .hqs-num span { color: var(--sky); }
+    .hqs-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
     }
 
-    /* Scroll indicator */
-    .scroll-hint {
+    /* Vertical rail */
+    .hero-rail {
       position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
+      left: 1.8rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.4rem;
-      color: rgba(255,255,255,0.7);
+      gap: 1rem;
+    }
+    .hero-rail-line {
+      width: 1.5px;
+      height: 80px;
+      background: linear-gradient(180deg, transparent, rgba(255,255,255,0.3));
+    }
+    .hero-rail-text {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+    }
+    .hero-rail-line2 {
+      width: 1.5px;
+      height: 80px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.3), transparent);
+    }
+
+    /* Floating badge */
+    .hero-float-badge {
+      position: absolute;
+      top: 100px;
+      right: 3rem;
+      z-index: 3;
+      background: var(--yellow);
+      color: var(--navy);
+      font-family: var(--font-display);
+      font-weight: 800;
       font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      padding: 0.5rem 1rem;
+      border-radius: var(--r-pill);
+      box-shadow: var(--shadow-yellow);
+      animation: h-up 0.8s ease 0.7s both, badge-bob 3s ease-in-out 1.5s infinite;
+    }
+    @keyframes badge-bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* Marquee strip */
+    .hero-marquee-wrap {
+      position: relative;
+      z-index: 2;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      overflow: hidden;
+      height: 52px;
+      display: flex;
+      align-items: center;
+    }
+    .hero-marquee-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 22s linear infinite;
+      white-space: nowrap;
+    }
+    .hero-marquee-track span {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.85rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      animation: hero-fade-up 1s ease 0.8s both;
+      color: rgba(255,255,255,0.5);
+      padding: 0 1.5rem;
     }
-    .scroll-hint span { font-weight: 600; }
-    .scroll-line {
-      width: 2px;
-      height: 40px;
-      background: rgba(255,255,255,0.4);
-      border-radius: 1px;
-      overflow: hidden;
+    .hero-marquee-track span.hi { color: var(--sky); }
+    .hero-marquee-track span.ho { color: var(--orange); }
+    .hero-marquee-track span.dot { color: rgba(255,255,255,0.2); font-size: 0.5rem; padding: 0 0.5rem; vertical-align: middle; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
     }
-    .scroll-line::after {
-      content: '';
-      display: block;
-      width: 100%;
-      height: 40%;
-      background: #fff;
-      border-radius: 1px;
-      animation: scroll-drop 1.5s ease-in-out infinite;
-    }
-    @keyframes scroll-drop {
-      0% { transform: translateY(-100%); }
-      100% { transform: translateY(250%); }
+
+    @keyframes h-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     /* ── SECTION COMMONS ── */
@@ -383,178 +455,368 @@
       transform: translateY(0);
     }
 
-    /* ── RIDES ── */
-    #rides { background: var(--white); }
-
-    .rides-header { margin-bottom: 3.5rem; }
-
-    .rides-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.8rem;
-    }
-
-    .ride-card {
-      background: #fff;
-      border-radius: var(--r-lg);
-      overflow: hidden;
-      box-shadow: 0 4px 24px rgba(12,26,58,0.08);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-    }
-    .ride-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 50px rgba(12,26,58,0.15);
-    }
-
-    .ride-card-top {
-      height: 180px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* ── WORLD INTRO ── */
+    #world-intro {
+      background: var(--navy);
+      padding: 5rem 2rem;
       position: relative;
       overflow: hidden;
     }
-    .ride-card-top svg { width: 90px; height: 90px; opacity: 0.9; z-index: 1; position: relative; }
-    .ride-card-top img.ride-img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 0;
-      opacity: 0.65;
-      transition: opacity 0.3s, transform 0.4s;
-    }
-    .ride-card:hover .ride-img { opacity: 0.8; transform: scale(1.06); }
-    .ride-card-top::before {
+    #world-intro::before {
       content: '';
       position: absolute;
       inset: 0;
-      z-index: 1;
-      background: inherit;
-      opacity: 0.55;
+      background: radial-gradient(ellipse at 30% 50%, rgba(26,172,240,0.12) 0%, transparent 60%),
+                  radial-gradient(ellipse at 75% 50%, rgba(255,98,48,0.08) 0%, transparent 60%);
     }
-    .ride-card-top svg { z-index: 2; position: relative; }
-    .ride-badge { z-index: 2; }
+    .world-intro-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .world-intro-inner p {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      color: rgba(255,255,255,0.85);
+      line-height: 1.75;
+      margin-bottom: 3rem;
+    }
+    .world-intro-inner p strong { color: var(--yellow); font-weight: 600; }
+    .world-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .world-stat {
+      text-align: center;
+    }
+    .world-stat-num {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 2.8rem;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .world-stat-num span { color: var(--sky); }
+    .world-stat-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
 
-    .ride-badge {
+    /* ── RIDES ── */
+    #rides { background: var(--navy); overflow: hidden; }
+    #rides .section-label { color: var(--orange); }
+    #rides .section-label::before { background: var(--orange); }
+    #rides h2.section-title { color: #fff; }
+    #rides .section-sub { color: rgba(255,255,255,0.45); }
+
+    .rides-header { margin-bottom: 3rem; }
+
+    /* Spotlight — Skybreaker */
+    .ride-spotlight {
+      position: relative;
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      height: 520px;
+      margin-bottom: 1.2rem;
+      cursor: pointer;
+    }
+    .ride-spotlight-photo {
       position: absolute;
-      top: 14px;
-      right: 14px;
-      background: var(--yellow);
-      color: var(--navy);
+      inset: 0;
+      background: url('images/ride1.jpg') center/cover no-repeat;
+      transition: transform 0.6s ease;
+    }
+    .ride-spotlight:hover .ride-spotlight-photo { transform: scale(1.04); }
+    .ride-spotlight::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(12,26,58,0.97) 0%, rgba(12,26,58,0.8) 45%, rgba(12,26,58,0.15) 100%);
+    }
+    .ride-spotlight-body {
+      position: relative;
+      z-index: 2;
+      padding: 3.5rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.1rem;
+      max-width: 580px;
+    }
+    .ride-spotlight-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--orange);
+      color: #fff;
       font-size: 0.7rem;
       font-weight: 800;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      padding: 0.25rem 0.65rem;
+      padding: 0.3rem 0.85rem;
       border-radius: var(--r-pill);
+      width: fit-content;
     }
-
-    .ride-card-body { padding: 1.5rem; }
-    .ride-zone {
+    .ride-spotlight-zone {
       font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+    .ride-spotlight-name {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      color: #fff;
+      line-height: 1.0;
+    }
+    .ride-spotlight-desc {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.62);
+      line-height: 1.7;
+      max-width: 420px;
+    }
+    .ride-spotlight-stats {
+      display: flex;
+      gap: 2.5rem;
+    }
+    .ride-spotlight-stat-val {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: #fff;
+      line-height: 1;
+    }
+    .ride-spotlight-stat-val span { font-size: 1rem; opacity: 0.7; }
+    .ride-spotlight-stat-label {
+      font-size: 0.68rem;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      opacity: 0.6;
-      margin-bottom: 0.4rem;
+      color: rgba(255,255,255,0.4);
+      margin-top: 0.3rem;
     }
-    .ride-name {
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: 1.35rem;
-      color: var(--navy);
-      margin-bottom: 0.5rem;
-    }
-    .ride-desc {
+    .ride-spotlight-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--orange);
+      color: #fff;
       font-size: 0.9rem;
-      color: var(--navy-mid);
-      opacity: 0.7;
-      line-height: 1.6;
-      margin-bottom: 1rem;
+      font-weight: 700;
+      padding: 0.9rem 2rem;
+      border-radius: var(--r-pill);
+      text-decoration: none;
+      width: fit-content;
+      transition: background 0.2s, gap 0.2s;
+      margin-top: 0.4rem;
     }
-    .ride-stats {
-      display: flex;
-      gap: 1rem;
-    }
-    .ride-stat {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--navy-mid);
-      opacity: 0.7;
-    }
-    .ride-stat svg { width: 14px; height: 14px; }
+    .ride-spotlight-cta:hover { background: #e05520; gap: 0.75rem; }
 
-    /* ── MAP ── */
-    #map {
-      background: linear-gradient(180deg, var(--sky-light) 0%, var(--surface) 100%);
-    }
-
-    .map-wrap {
+    /* Secondary ride mini-cards */
+    .rides-secondary {
       display: grid;
-      grid-template-columns: 1fr 1.4fr;
-      gap: 3rem;
-      align-items: start;
-      margin-top: 3rem;
-    }
-
-    .map-zones { display: flex; flex-direction: column; gap: 1rem; }
-
-    .zone-item {
-      display: flex;
-      align-items: center;
+      grid-template-columns: repeat(4, 1fr);
       gap: 1rem;
-      padding: 1rem 1.2rem;
-      border-radius: var(--r-md);
-      background: #fff;
-      box-shadow: 0 2px 12px rgba(12,26,58,0.06);
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      border-left: 5px solid;
     }
-    .zone-item:hover { transform: translateX(6px); box-shadow: 0 6px 24px rgba(12,26,58,0.12); }
-    .zone-dot {
-      width: 38px;
-      height: 38px;
+    .ride-mini {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease, border-color 0.3s, background 0.3s;
+    }
+    .ride-mini:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.07);
+    }
+    .ride-mini-top {
+      height: 145px;
+      position: relative;
+      overflow: hidden;
+    }
+    .ride-mini-top img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.6;
+      transition: opacity 0.3s, transform 0.4s;
+    }
+    .ride-mini:hover .ride-mini-top img { opacity: 0.8; transform: scale(1.05); }
+    .ride-mini-top::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(12,26,58,0.9) 100%);
+    }
+    .ride-mini-icon {
+      position: absolute;
+      top: 12px; right: 12px;
+      z-index: 2;
+      width: 34px; height: 34px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
-      font-size: 1.1rem;
-    }
-    .zone-info h4 {
-      font-family: var(--font-display);
-      font-weight: 700;
       font-size: 1rem;
-      color: var(--navy);
+      backdrop-filter: blur(4px);
     }
-    .zone-info p { font-size: 0.82rem; color: var(--navy-mid); opacity: 0.65; margin-top: 0.15rem; }
+    .ride-mini-body { padding: 1.2rem; }
+    .ride-mini-zone {
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 0.3rem;
+    }
+    .ride-mini-name {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 0.55rem;
+    }
+    .ride-mini-tag {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--r-pill);
+      margin-bottom: 0.8rem;
+    }
+    .ride-mini-stats {
+      display: flex;
+      gap: 0.8rem;
+      font-size: 0.74rem;
+      color: rgba(255,255,255,0.35);
+      font-weight: 500;
+    }
 
-    .z1 { border-color: var(--sky); }
-    .z1 .zone-dot { background: rgba(26,172,240,0.15); color: var(--sky); }
-    .z2 { border-color: var(--orange); }
-    .z2 .zone-dot { background: rgba(255,98,48,0.12); color: var(--orange); }
-    .z3 { border-color: #4DB6E8; }
-    .z3 .zone-dot { background: rgba(77,182,232,0.12); color: #4DB6E8; }
-    .z4 { border-color: var(--magenta); }
-    .z4 .zone-dot { background: rgba(240,24,122,0.1); color: var(--magenta); }
-    .z5 { border-color: #F7A84A; }
-    .z5 .zone-dot { background: rgba(247,168,74,0.12); color: #F7A84A; }
+    /* ── MAP ── */
+    #map { background: var(--navy); }
+    #map .section-label { color: var(--yellow); }
+    #map .section-label::before { background: var(--yellow); }
+    #map h2.section-title { color: #fff; }
+    #map .section-sub { color: rgba(255,255,255,0.45); }
 
-    .map-visual {
-      background: #fff;
+    .zones-bento {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 300px 220px;
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+    .zones-bento .zone-card:nth-child(4) { grid-column: span 2; }
+
+    .zone-card {
       border-radius: var(--r-xl);
-      box-shadow: 0 8px 40px rgba(12,26,58,0.1);
-      overflow: hidden;
-      aspect-ratio: 4/3;
+      padding: 2rem;
       position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+    .zone-card:hover { transform: translateY(-6px); }
+
+    .zone-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.08;
+      background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.4) 1px, transparent 0);
+      background-size: 20px 20px;
+    }
+    .zone-card::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; right: -40px;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+    }
+
+    .zone-card-top { position: relative; z-index: 1; }
+    .zone-emoji { font-size: 2.2rem; display: block; margin-bottom: 0.8rem; }
+    .zone-card-name {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 0.4rem;
+    }
+    .zone-card-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .zone-card-bottom { position: relative; z-index: 1; }
+    .zone-attractions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      margin-bottom: 1rem;
+    }
+    .zone-attr {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.75);
+      font-weight: 500;
+    }
+    .zone-attr::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      flex-shrink: 0;
+    }
+    .zone-desc {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.6;
+      margin-top: 0.6rem;
+    }
+    .zone-explore {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+      margin-top: auto;
+    }
+    .zone-explore:hover { color: #fff; }
+
+    .zc-sky     { background: linear-gradient(135deg, #0B84CC, #1AACF0); box-shadow: 0 12px 40px rgba(26,172,240,0.35); }
+    .zc-thunder { background: linear-gradient(135deg, #C84A1E, #FF6230); box-shadow: 0 12px 40px rgba(255,98,48,0.35); }
+    .zc-cloud   { background: linear-gradient(135deg, #0B6D99, #4DB6E8); box-shadow: 0 12px 40px rgba(77,182,232,0.3); }
+    .zc-neon    { background: linear-gradient(135deg, #A0105A, #F0187A); box-shadow: 0 12px 40px rgba(240,24,122,0.35); }
+    .zc-sunset  { background: linear-gradient(135deg, #B06B0A, #F7A84A); box-shadow: 0 12px 40px rgba(247,168,74,0.35); }
 
     /* ── GAMES ── */
     #games { background: var(--navy); position: relative; overflow: hidden; }
@@ -620,240 +882,757 @@
     .game-card p { font-size: 0.87rem; color: rgba(255,255,255,0.55); line-height: 1.6; }
 
     /* ── TICKETS ── */
-    #tickets { background: var(--white); }
-
-    .tickets-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.6rem;
-      margin-top: 3rem;
-    }
-
-    .ticket-card {
-      background: #fff;
-      border-radius: var(--r-xl);
-      padding: 2rem 1.8rem;
-      box-shadow: 0 4px 24px rgba(12,26,58,0.07);
-      border: 2.5px solid transparent;
-      transition: transform 0.3s, box-shadow 0.3s;
+    #tickets {
+      background: var(--navy);
       position: relative;
       overflow: hidden;
     }
-    .ticket-card:hover { transform: translateY(-8px); }
-    .ticket-card.featured {
-      border-color: var(--sky);
-      box-shadow: var(--shadow-sky);
-      background: linear-gradient(145deg, #fff 60%, rgba(26,172,240,0.06) 100%);
-    }
-    .ticket-card.featured::before {
-      content: '★ MOST POPULAR';
+    #tickets::before {
+      content: '';
       position: absolute;
-      top: 18px; right: -28px;
-      background: var(--sky);
-      color: #fff;
-      font-size: 0.65rem;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      padding: 0.3rem 2.5rem;
-      transform: rotate(45deg);
-      transform-origin: center;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.018) 0px,
+        rgba(255,255,255,0.018) 1px,
+        transparent 1px,
+        transparent 22px
+      );
+      pointer-events: none;
     }
+    #tickets .section-label { color: var(--yellow); }
+    #tickets .section-label::before { background: var(--yellow); }
+    #tickets h2.section-title { color: #fff; }
+    #tickets .section-sub { color: rgba(255,255,255,0.45); }
 
-    .ticket-icon {
-      width: 52px; height: 52px;
-      border-radius: var(--r-md);
+    /* Featured ticket — Unlimited Wristband */
+    .ticket-featured {
+      position: relative;
+      border-radius: var(--r-xl);
+      background: linear-gradient(120deg, #C84A1E 0%, #FF6230 55%, #FF8C55 100%);
+      box-shadow: 0 24px 64px rgba(255,98,48,0.45);
       display: flex;
+      overflow: visible;
+      margin-bottom: 1.2rem;
+      z-index: 1;
+    }
+    .ticket-featured::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--r-xl);
+      background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.07) 1px, transparent 0);
+      background-size: 22px 22px;
+      pointer-events: none;
+    }
+    .ticket-featured-left {
+      padding: 2.8rem 3rem;
+      position: relative;
+      z-index: 1;
+      flex: 1;
+    }
+    .ticket-featured-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255,255,255,0.22);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.85rem;
+      border-radius: var(--r-pill);
+      margin-bottom: 1.1rem;
+      backdrop-filter: blur(4px);
+    }
+    .ticket-featured-name {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.7rem, 3vw, 2.5rem);
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 0.65rem;
+    }
+    .ticket-featured-desc {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.68);
+      margin-bottom: 1.6rem;
+      max-width: 440px;
+    }
+    .ticket-featured-perks {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 1.4rem;
+      list-style: none;
+    }
+    .ticket-featured-perks li {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.85);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .ticket-featured-perks li::before { content: '✓'; font-weight: 800; }
+
+    .ticket-perf {
+      width: 2px;
+      flex-shrink: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.38) 0px,
+        rgba(255,255,255,0.38) 9px,
+        transparent 9px,
+        transparent 18px
+      );
+      margin: 0;
+      position: relative;
+      z-index: 2;
+    }
+    .ticket-perf::before,
+    .ticket-perf::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--navy);
+    }
+    .ticket-perf::before { top: -16px; }
+    .ticket-perf::after { bottom: -16px; }
+
+    .ticket-featured-right {
+      display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
-      margin-bottom: 1.2rem;
+      padding: 2.8rem 3.2rem;
+      gap: 1.2rem;
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
     }
-    .ticket-name {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 1.05rem;
-      color: var(--navy);
-      margin-bottom: 0.8rem;
-    }
-    .ticket-price {
+    .ticket-featured-price {
       font-family: var(--font-display);
       font-weight: 800;
-      font-size: 2.8rem;
-      color: var(--navy);
+      font-size: 4.5rem;
+      color: #fff;
       line-height: 1;
-      margin-bottom: 0.2rem;
+      text-align: center;
     }
-    .ticket-price sup { font-size: 1.2rem; vertical-align: top; margin-top: 0.5rem; }
-    .ticket-desc { font-size: 0.85rem; color: var(--navy-mid); opacity: 0.6; margin-bottom: 1.4rem; }
-    .ticket-perks { list-style: none; margin-bottom: 1.6rem; display: flex; flex-direction: column; gap: 0.5rem; }
-    .ticket-perks li {
+    .ticket-featured-price sup {
+      font-size: 1.5rem;
+      vertical-align: top;
+      margin-top: 0.65rem;
+      opacity: 0.7;
+    }
+    .ticket-featured-price-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      margin-top: 0.25rem;
+    }
+
+    /* 3 standard pass cards */
+    .tickets-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .ticket-pass {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      display: flex;
+      transition: transform 0.3s, border-color 0.3s, background 0.3s;
+    }
+    .ticket-pass:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.07);
+    }
+    .ticket-pass-left {
+      padding: 2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .ticket-pass-icon { font-size: 1.9rem; line-height: 1; }
+    .ticket-pass-name {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #fff;
+      line-height: 1.2;
+    }
+    .ticket-pass-desc {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.42);
+      line-height: 1.5;
+      flex: 1;
+    }
+    .ticket-pass-perks {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.32rem;
+    }
+    .ticket-pass-perks li {
+      font-size: 0.79rem;
+      color: rgba(255,255,255,0.58);
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 0.87rem;
-      color: var(--navy-mid);
+      gap: 0.38rem;
     }
-    .ticket-perks li::before { content: '✓'; color: var(--sky); font-weight: 700; }
-    .ticket-card .btn { width: 100%; justify-content: center; }
+    .ticket-pass-perks li::before { content: '✓'; color: var(--sky); font-weight: 800; font-size: 0.72rem; }
+
+    .ticket-pass-perf {
+      width: 1px;
+      flex-shrink: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.2) 0px,
+        rgba(255,255,255,0.2) 6px,
+        transparent 6px,
+        transparent 12px
+      );
+      margin: 0;
+      position: relative;
+    }
+    .ticket-pass-perf::before,
+    .ticket-pass-perf::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--navy);
+    }
+    .ticket-pass-perf::before { top: -11px; }
+    .ticket-pass-perf::after { bottom: -11px; }
+
+    .ticket-pass-right {
+      padding: 2rem 1.6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-shrink: 0;
+    }
+    .ticket-pass-price {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 2.6rem;
+      color: #fff;
+      line-height: 1;
+      text-align: center;
+    }
+    .ticket-pass-price sup {
+      font-size: 1rem;
+      vertical-align: top;
+      margin-top: 0.45rem;
+      opacity: 0.6;
+    }
 
     /* ── FOOD ── */
     #food {
-      background: linear-gradient(135deg, #FFF5EC 0%, #FFF0E0 50%, #FFF8EE 100%);
-    }
-    #food .section-label { color: var(--orange); }
-    #food .section-label::before { background: var(--orange); }
-
-    .food-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1.4rem;
-      margin-top: 3rem;
-    }
-    .food-card {
-      background: #fff;
-      border-radius: var(--r-lg);
-      padding: 1.6rem;
-      text-align: center;
-      box-shadow: 0 3px 16px rgba(255,98,48,0.1);
-      transition: transform 0.25s, box-shadow 0.25s;
-    }
-    .food-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 10px 30px rgba(255,98,48,0.2);
-    }
-    .food-card .icon { font-size: 2.8rem; margin-bottom: 0.8rem; display: block; }
-    .food-card h4 { font-family: var(--font-display); font-weight: 700; color: var(--navy); margin-bottom: 0.3rem; }
-    .food-card p { font-size: 0.82rem; color: var(--navy-mid); opacity: 0.65; }
-
-    /* ── EVENTS ── */
-    #events { background: var(--sky-light); }
-
-    .events-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.6rem;
-      margin-top: 3rem;
-    }
-    .event-card {
-      background: #fff;
-      border-radius: var(--r-lg);
+      background: #120900;
+      position: relative;
       overflow: hidden;
-      box-shadow: 0 4px 20px rgba(12,26,58,0.07);
-      transition: transform 0.3s, box-shadow 0.3s;
     }
-    .event-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(12,26,58,0.12); }
-    .event-banner {
-      height: 120px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
+    #food::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 500px;
+      background: radial-gradient(ellipse, rgba(247,168,74,0.1) 0%, transparent 70%);
+      pointer-events: none;
     }
-    .event-body { padding: 1.4rem; }
-    .event-tag {
-      display: inline-block;
-      background: var(--sky-light);
-      color: var(--sky-deep);
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.2rem 0.6rem;
-      border-radius: var(--r-pill);
-      margin-bottom: 0.5rem;
-    }
-    .event-body h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; color: var(--navy); margin-bottom: 0.4rem; }
-    .event-body p { font-size: 0.87rem; color: var(--navy-mid); opacity: 0.65; line-height: 1.6; }
+    #food .section-label { color: var(--yellow); }
+    #food .section-label::before { background: var(--yellow); }
+    #food h2.section-title { color: #fff; }
+    #food .section-sub { color: rgba(255,255,255,0.45); }
 
-    /* ── GALLERY ── */
-    #gallery { background: var(--white); }
-
-    .gallery-grid {
+    .food-bento {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: auto;
       gap: 1rem;
       margin-top: 3rem;
     }
+    .food-bento .food-item:first-child  { grid-column: span 2; }
+    .food-bento .food-item:last-child   { grid-column: span 3; }
 
-    .gallery-item {
-      border-radius: var(--r-md);
-      overflow: hidden;
-      cursor: pointer;
-      position: relative;
-      background: var(--surface);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.3s;
-    }
-    .gallery-item:hover { transform: scale(0.98); }
-    .gallery-item:hover .gallery-overlay { opacity: 1; }
-    .gallery-item:nth-child(1) { grid-row: span 2; }
-    .gallery-item:nth-child(4) { grid-column: span 2; }
-
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      min-height: 200px;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-    .gallery-item:hover img { transform: scale(1.05); }
-
-    .gallery-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(12,26,58,0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .gallery-overlay span { color: #fff; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.05em; }
-
-    /* ── FAQ ── */
-    #faq { background: linear-gradient(180deg, var(--surface) 0%, var(--white) 100%); }
-
-    .faq-list {
-      max-width: 760px;
-      margin: 3rem auto 0;
+    .food-item {
+      border-radius: var(--r-xl);
+      padding: 2rem;
       display: flex;
       flex-direction: column;
-      gap: 0.8rem;
+      justify-content: space-between;
+      min-height: 210px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .food-item:hover { transform: translateY(-5px); }
+    .food-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 0);
+      background-size: 20px 20px;
+      pointer-events: none;
     }
 
-    .faq-item {
-      background: #fff;
-      border-radius: var(--r-lg);
-      box-shadow: 0 2px 12px rgba(12,26,58,0.06);
+    .fi-burgers { background: linear-gradient(135deg, #7B2000, #C84A1E); box-shadow: 0 16px 48px rgba(200,74,30,0.35); }
+    .fi-skydog  { background: linear-gradient(135deg, #7A3A00, #D4720A); box-shadow: 0 16px 48px rgba(212,114,10,0.3); }
+    .fi-pizza   { background: linear-gradient(135deg, #5E2000, #AA4010); box-shadow: 0 12px 36px rgba(184,74,16,0.25); }
+    .fi-swirl   { background: linear-gradient(135deg, #003D6B, #1AACF0); box-shadow: 0 12px 36px rgba(26,172,240,0.25); }
+    .fi-midway  { background: linear-gradient(135deg, #4A0060, #9010A0); box-shadow: 0 12px 36px rgba(144,16,160,0.28); }
+    .fi-refresh {
+      background: linear-gradient(120deg, #0A1A3A, #0B4A7A);
+      min-height: 0;
+      flex-direction: row;
+      align-items: center;
+      gap: 2rem;
+      padding: 1.6rem 2rem;
+      box-shadow: 0 8px 30px rgba(11,132,204,0.2);
+    }
+    .fi-refresh .food-item-emoji { font-size: 2.2rem; }
+    .fi-refresh .food-item-name  { font-size: 1.1rem; margin-bottom: 0.15rem; }
+
+    .food-item-emoji {
+      font-size: 2.6rem;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+    }
+    .food-item-body { position: relative; z-index: 1; }
+    .food-item-tag {
+      font-size: 0.64rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.48);
+      margin-bottom: 0.4rem;
+    }
+    .food-item-name {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 0.4rem;
+    }
+    .food-item-desc {
+      font-size: 0.83rem;
+      color: rgba(255,255,255,0.58);
+      line-height: 1.55;
+    }
+
+    /* ── EVENTS ── */
+    #events {
+      background: #070C18;
+      position: relative;
       overflow: hidden;
     }
+    #events::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 12% 18%, rgba(255,255,255,0.65) 0%, transparent 100%),
+        radial-gradient(1px 1px at 33% 42%, rgba(255,255,255,0.45) 0%, transparent 100%),
+        radial-gradient(1px 1px at 54% 12%, rgba(255,255,255,0.7)  0%, transparent 100%),
+        radial-gradient(1px 1px at 71% 58%, rgba(255,255,255,0.5)  0%, transparent 100%),
+        radial-gradient(1px 1px at 87% 28%, rgba(255,255,255,0.6)  0%, transparent 100%),
+        radial-gradient(1px 1px at 24% 72%, rgba(255,255,255,0.4)  0%, transparent 100%),
+        radial-gradient(1px 1px at 64% 83%, rgba(255,255,255,0.5)  0%, transparent 100%),
+        radial-gradient(1px 1px at 41% 92%, rgba(255,255,255,0.35) 0%, transparent 100%),
+        radial-gradient(1px 1px at  7% 52%, rgba(255,255,255,0.45) 0%, transparent 100%),
+        radial-gradient(1px 1px at 91% 78%, rgba(255,255,255,0.5)  0%, transparent 100%),
+        radial-gradient(2px 2px at 49%  4%, rgba(255,255,255,0.8)  0%, transparent 100%),
+        radial-gradient(2px 2px at 79%  9%, rgba(255,255,255,0.7)  0%, transparent 100%),
+        radial-gradient(1px 1px at 58% 36%, rgba(255,255,255,0.4)  0%, transparent 100%),
+        radial-gradient(1px 1px at 19% 88%, rgba(255,255,255,0.5)  0%, transparent 100%);
+      pointer-events: none;
+    }
+    #events .section-label { color: var(--magenta); }
+    #events .section-label::before { background: var(--magenta); }
+    #events h2.section-title { color: #fff; }
+    #events .section-sub { color: rgba(255,255,255,0.45); }
 
+    @keyframes live-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+
+    /* Spotlight — Night Spectacle */
+    .event-spotlight {
+      border-radius: var(--r-xl);
+      background: linear-gradient(135deg, #060D22 0%, #0C1A3A 60%, #0E205A 100%);
+      border: 1px solid rgba(26,172,240,0.2);
+      box-shadow: 0 0 80px rgba(26,172,240,0.08), 0 24px 64px rgba(0,0,0,0.5);
+      padding: 3.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3rem;
+      align-items: center;
+      margin-bottom: 1.2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .event-spotlight::after {
+      content: '';
+      position: absolute;
+      top: -120px; right: -60px;
+      width: 450px; height: 450px;
+      background: radial-gradient(circle, rgba(26,172,240,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .event-spotlight-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(26,172,240,0.12);
+      color: var(--sky);
+      border: 1px solid rgba(26,172,240,0.28);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.28rem 0.85rem;
+      border-radius: var(--r-pill);
+      margin-bottom: 1.1rem;
+      width: fit-content;
+    }
+    .event-spotlight-badge .live-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--sky);
+      animation: live-pulse 1.6s ease-in-out infinite;
+    }
+    .event-spotlight-name {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.9rem, 3.5vw, 2.9rem);
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 0.85rem;
+    }
+    .event-spotlight-desc {
+      font-size: 0.97rem;
+      color: rgba(255,255,255,0.58);
+      line-height: 1.75;
+      max-width: 520px;
+      margin-bottom: 1.8rem;
+    }
+    .event-schedule {
+      display: flex;
+      gap: 2.2rem;
+    }
+    .event-schedule-val {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--sky);
+      line-height: 1;
+    }
+    .event-schedule-val span { font-size: 0.9rem; opacity: 0.7; }
+    .event-schedule-label {
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-top: 0.3rem;
+    }
+    .event-spotlight-emoji {
+      font-size: 6rem;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 0 30px rgba(26,172,240,0.4));
+    }
+
+    /* Supporting event mini-cards */
+    .events-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .event-mini {
+      border-radius: var(--r-xl);
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .event-mini:hover { transform: translateY(-5px); }
+    .event-mini::after {
+      content: '';
+      position: absolute;
+      bottom: -50px; right: -50px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      pointer-events: none;
+    }
+    .ev-stage {
+      background: linear-gradient(135deg, #16002C, #5B1A8A);
+      border: 1px solid rgba(198,116,232,0.2);
+      box-shadow: 0 16px 50px rgba(91,26,138,0.32);
+    }
+    .ev-festival {
+      background: linear-gradient(135deg, #180800, #B84010);
+      border: 1px solid rgba(255,98,48,0.2);
+      box-shadow: 0 16px 50px rgba(184,64,16,0.28);
+    }
+    .event-mini-badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.67rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--r-pill);
+      margin-bottom: 1.2rem;
+      width: fit-content;
+    }
+    .ev-stage   .event-mini-badge { background: rgba(198,116,232,0.18); color: #C674E8; border: 1px solid rgba(198,116,232,0.28); }
+    .ev-festival .event-mini-badge { background: rgba(255,98,48,0.18);  color: #FF9060; border: 1px solid rgba(255,98,48,0.28); }
+    .event-mini-emoji {
+      font-size: 3rem;
+      line-height: 1;
+      display: block;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+    .event-mini-name {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.45rem;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 0.65rem;
+      position: relative;
+      z-index: 1;
+    }
+    .event-mini-desc {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.52);
+      line-height: 1.7;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── GALLERY ── */
+    #gallery {
+      background: var(--navy);
+      padding: 6rem 0;
+      overflow: hidden;
+    }
+    #gallery .container { margin-bottom: 2.5rem; }
+    #gallery .section-label { color: var(--magenta); }
+    #gallery .section-label::before { background: var(--magenta); }
+    #gallery h2.section-title { color: #fff; }
+    #gallery .section-sub { color: rgba(255,255,255,0.45); }
+
+    .gallery-tracks { display: flex; flex-direction: column; gap: 1rem; }
+
+    .gallery-track {
+      display: flex;
+      gap: 1rem;
+      width: max-content;
+      animation: track-left 32s linear infinite;
+    }
+    .gallery-track--right {
+      animation: track-right 28s linear infinite;
+    }
+    .gallery-tracks:hover .gallery-track { animation-play-state: paused; }
+
+    @keyframes track-left {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @keyframes track-right {
+      from { transform: translateX(-50%); }
+      to   { transform: translateX(0); }
+    }
+
+    .gallery-cell {
+      position: relative;
+      height: 260px;
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .gallery-cell img {
+      height: 100%;
+      width: auto;
+      min-width: 200px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease, filter 0.4s ease;
+    }
+    .gallery-cell:hover img {
+      transform: scale(1.08);
+      filter: brightness(0.7);
+    }
+    .gallery-cell-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1rem 1.2rem 1rem;
+      background: linear-gradient(transparent, rgba(12,26,58,0.9));
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      transform: translateY(100%);
+      transition: transform 0.35s ease;
+    }
+    .gallery-cell:hover .gallery-cell-caption { transform: translateY(0); }
+
+    .gallery-cta {
+      display: flex;
+      justify-content: center;
+      margin-top: 2.8rem;
+      padding: 0 2rem;
+    }
+
+    /* ── FAQ ── */
+    #faq {
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+    }
+    #faq::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(26,172,240,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    #faq .section-label { color: var(--sky); }
+    #faq .section-label::before { background: var(--sky); }
+    #faq h2.section-title { color: #fff; }
+
+    .faq-wrap {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 5rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+    .faq-sidebar { position: sticky; top: 100px; }
+    .faq-sidebar-q {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 9rem;
+      line-height: 0.9;
+      color: rgba(26,172,240,0.1);
+      user-select: none;
+      margin-bottom: 1.5rem;
+    }
+    .faq-sidebar-heading {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.55rem;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 0.8rem;
+    }
+    .faq-sidebar-sub {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.42);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+    .faq-sidebar-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(26,172,240,0.1);
+      border: 1px solid rgba(26,172,240,0.28);
+      color: var(--sky);
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.85rem 1.6rem;
+      border-radius: var(--r-pill);
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .faq-sidebar-cta:hover { background: rgba(26,172,240,0.2); }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      transition: border-color 0.2s;
+    }
+    .faq-item.open { border-bottom-color: rgba(26,172,240,0.2); }
+    .faq-item.open::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--sky);
+      border-radius: 0 2px 2px 0;
+    }
     .faq-q {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 1.3rem 1.6rem;
+      gap: 1.4rem;
+      padding: 1.5rem 1.5rem 1.5rem 1.6rem;
       cursor: pointer;
-      font-weight: 600;
-      font-size: 1rem;
-      color: var(--navy);
-      transition: color 0.2s;
-      gap: 1rem;
       user-select: none;
+      transition: background 0.2s;
     }
-    .faq-q:hover { color: var(--sky); }
+    .faq-q:hover { background: rgba(255,255,255,0.03); }
+    .faq-num {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      color: rgba(26,172,240,0.35);
+      flex-shrink: 0;
+      width: 24px;
+      transition: color 0.2s;
+    }
+    .faq-item.open .faq-num { color: var(--sky); }
+    .faq-q-text {
+      flex: 1;
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.4;
+      transition: color 0.2s;
+    }
+    .faq-item.open .faq-q-text { color: #fff; }
     .faq-q svg {
       flex-shrink: 0;
       width: 20px; height: 20px;
-      transition: transform 0.3s;
-      color: var(--sky);
+      color: rgba(255,255,255,0.25);
+      transition: transform 0.35s ease, color 0.2s;
     }
-    .faq-item.open .faq-q svg { transform: rotate(180deg); }
-    .faq-item.open .faq-q { color: var(--sky); }
+    .faq-item.open .faq-q svg { transform: rotate(180deg); color: var(--sky); }
 
     .faq-a {
       max-height: 0;
@@ -861,11 +1640,10 @@
       transition: max-height 0.4s ease;
     }
     .faq-a-inner {
-      padding: 0 1.6rem 1.3rem;
+      padding: 0 1.5rem 1.6rem calc(1.6rem + 24px + 1.4rem);
       font-size: 0.93rem;
-      color: var(--navy-mid);
-      opacity: 0.7;
-      line-height: 1.75;
+      color: rgba(255,255,255,0.48);
+      line-height: 1.82;
     }
 
     /* ── PLAN / CONTACT ── */
@@ -943,21 +1721,45 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 1024px) {
-      .map-wrap { grid-template-columns: 1fr; }
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-      .gallery-item:nth-child(1) { grid-row: span 1; }
-      .gallery-item:nth-child(4) { grid-column: span 1; }
+      .zones-bento { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .zones-bento .zone-card:nth-child(4) { grid-column: span 1; }
+      .rides-secondary { grid-template-columns: 1fr 1fr; }
+      .tickets-row { grid-template-columns: 1fr 1fr; }
+      .food-bento { grid-template-columns: 1fr 1fr; }
+      .food-bento .food-item:first-child { grid-column: span 1; }
+      .food-bento .food-item:last-child  { grid-column: span 2; }
+      .gallery-cell { height: 200px; }
     }
     @media (max-width: 768px) {
       nav { padding: 0 1.2rem; }
       .nav-links { display: none; }
-      .gallery-grid { grid-template-columns: 1fr 1fr; }
-      .hero-title { font-size: 2.6rem; }
+      .zones-bento { grid-template-columns: 1fr; }
+      .ride-spotlight { height: 420px; }
+      .ride-spotlight-body { padding: 2rem; }
+      .ticket-featured { flex-direction: column; }
+      .ticket-perf { width: 100%; height: 2px; background: repeating-linear-gradient(to right, rgba(255,255,255,0.38) 0px, rgba(255,255,255,0.38) 9px, transparent 9px, transparent 18px); }
+      .ticket-perf::before { top: 50%; left: -16px; transform: translateY(-50%); }
+      .ticket-perf::after { top: 50%; left: auto; right: -16px; transform: translateY(-50%); }
+      .ticket-featured-right { flex-direction: row; justify-content: space-between; padding: 1.8rem 2.5rem; }
+      .tickets-row { grid-template-columns: 1fr; }
+      .event-spotlight { grid-template-columns: 1fr; gap: 1.5rem; padding: 2.2rem; }
+      .event-spotlight-emoji { font-size: 4rem; }
+      .events-row { grid-template-columns: 1fr; }
+      .faq-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
+      .faq-sidebar { position: static; }
+      .faq-sidebar-q { font-size: 6rem; }
+      .hero-inner { padding: 0 1.5rem 0 3.5rem; }
+      .hero-rail { display: none; }
+      .hero-float-badge { top: 80px; right: 1.2rem; font-size: 0.68rem; }
     }
     @media (max-width: 640px) {
       section { padding: 4rem 1.2rem; }
-      .gallery-grid { grid-template-columns: 1fr; }
-      .gallery-item:nth-child(4) { grid-column: span 1; }
+      .ride-spotlight { height: 360px; }
+      .rides-secondary { grid-template-columns: 1fr; }
+      .ticket-featured-left { padding: 2rem; }
+      .food-bento { grid-template-columns: 1fr; }
+      .food-bento .food-item:last-child { grid-column: span 1; flex-direction: column; }
+      .gallery-cell { height: 160px; }
     }
   </style>
 </head>
@@ -986,92 +1788,100 @@
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-sky"></div>
-  <div class="hero-sun"></div>
+  <div class="hero-photo"></div>
 
-  <div class="cloud-layer">
-    <div class="cloud c1"></div>
-    <div class="cloud c2"></div>
-    <div class="cloud c3"></div>
-    <div class="cloud c4"></div>
+  <div class="hero-streaks">
+    <div class="streak"></div>
+    <div class="streak"></div>
+    <div class="streak"></div>
+    <div class="streak"></div>
+    <div class="streak"></div>
   </div>
 
-  <!-- Park Skyline SVG -->
-  <svg class="hero-park" viewBox="0 0 1440 280" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-    <!-- Ground -->
-    <rect x="0" y="240" width="1440" height="40" fill="#1A6B2E"/>
-    <rect x="0" y="250" width="1440" height="30" fill="#145220"/>
-    <!-- Buildings / structures left -->
-    <rect x="20" y="160" width="60" height="80" fill="#0C5EA0" rx="4"/>
-    <rect x="28" y="140" width="44" height="25" fill="#1074C2" rx="3"/>
-    <!-- Coaster structure -->
-    <path d="M120 240 L120 80 L200 80 L250 120 L300 60 L350 100 L380 80 L380 240" fill="none" stroke="#FF6230" stroke-width="3.5"/>
-    <path d="M300 60 Q305 40 310 60 Q315 45 320 60 Q325 42 330 60" fill="none" stroke="#FF6230" stroke-width="3.5"/>
-    <path d="M120 80 L380 80" stroke="#FF6230" stroke-width="2" opacity="0.4"/>
-    <path d="M120 100 L380 100" stroke="#FF6230" stroke-width="1.5" opacity="0.3"/>
-    <!-- Flag -->
-    <line x1="300" y1="60" x2="300" y2="30" stroke="#FFD63F" stroke-width="2.5"/>
-    <polygon points="300,30 320,38 300,46" fill="#FFD63F"/>
-    <!-- Center tower -->
-    <rect x="560" y="100" width="50" height="140" fill="#1AACF0" rx="4"/>
-    <rect x="548" y="90" width="74" height="20" fill="#2BBCF7" rx="3"/>
-    <rect x="575" y="70" width="20" height="25" fill="#2BBCF7" rx="2"/>
-    <polygon points="585,55 575,70 595,70" fill="#FFD63F"/>
-    <!-- Ferris wheel -->
-    <circle cx="730" cy="140" r="80" fill="none" stroke="#F0187A" stroke-width="3.5"/>
-    <circle cx="730" cy="140" r="12" fill="#F0187A"/>
-    <line x1="730" y1="60" x2="730" y2="220" stroke="#F0187A" stroke-width="2"/>
-    <line x1="650" y1="140" x2="810" y2="140" stroke="#F0187A" stroke-width="2"/>
-    <line x1="673" y1="83" x2="787" y2="197" stroke="#F0187A" stroke-width="2"/>
-    <line x1="787" y1="83" x2="673" y2="197" stroke="#F0187A" stroke-width="2"/>
-    <rect x="714" y="56" width="32" height="20" fill="rgba(255,255,255,0.8)" rx="4"/>
-    <rect x="804" y="126" width="32" height="20" fill="rgba(255,255,255,0.8)" rx="4"/>
-    <rect x="714" y="204" width="32" height="20" fill="rgba(255,255,255,0.8)" rx="4"/>
-    <rect x="624" y="126" width="32" height="20" fill="rgba(255,255,255,0.8)" rx="4"/>
-    <line x1="730" y1="220" x2="680" y2="240" stroke="#F0187A" stroke-width="3"/>
-    <line x1="730" y1="220" x2="780" y2="240" stroke="#F0187A" stroke-width="3"/>
-    <!-- Drop tower right -->
-    <rect x="970" y="40" width="22" height="200" fill="#0B84CC" rx="3"/>
-    <rect x="956" y="40" width="50" height="16" fill="#1AACF0" rx="3"/>
-    <rect x="963" y="160" width="36" height="28" fill="#FFD63F" rx="4"/>
-    <!-- Right buildings -->
-    <rect x="1100" y="140" width="80" height="100" fill="#8E44AD" rx="4" opacity="0.7"/>
-    <rect x="1200" y="110" width="55" height="130" fill="#1074C2" rx="4"/>
-    <rect x="1260" y="150" width="90" height="90" fill="#0C5EA0" rx="4"/>
-    <!-- Trees/flags -->
-    <circle cx="450" cy="220" r="22" fill="#1A6B2E"/>
-    <circle cx="475" cy="215" r="18" fill="#22883A"/>
-    <rect x="461" y="235" width="6" height="8" fill="#8B5E3C"/>
-    <circle cx="880" cy="220" r="20" fill="#1A6B2E"/>
-    <circle cx="860" cy="215" r="16" fill="#22883A"/>
-    <rect x="867" y="234" width="5" height="8" fill="#8B5E3C"/>
-    <!-- Lights string -->
-    <path d="M100 200 Q200 210 300 200 Q400 210 500 200" fill="none" stroke="#FFD63F" stroke-width="1.5" opacity="0.6"/>
-    <circle cx="150" cy="205" r="3" fill="#FFD63F" opacity="0.8"/>
-    <circle cx="200" cy="207" r="3" fill="#FF6230" opacity="0.8"/>
-    <circle cx="250" cy="203" r="3" fill="#F0187A" opacity="0.8"/>
-    <circle cx="300" cy="205" r="3" fill="#FFD63F" opacity="0.8"/>
-    <circle cx="350" cy="203" r="3" fill="#1AACF0" opacity="0.8"/>
-    <circle cx="400" cy="205" r="3" fill="#FF6230" opacity="0.8"/>
-    <circle cx="450" cy="203" r="3" fill="#FFD63F" opacity="0.8"/>
-  </svg>
+  <div class="hero-rail">
+    <div class="hero-rail-line"></div>
+    <div class="hero-rail-text">Est. 2026 · Clearview FL</div>
+    <div class="hero-rail-line2"></div>
+  </div>
 
-  <div class="hero-content">
-    <div class="hero-badge">
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M6 0l1.5 4.5H12L8.25 7.3l1.5 4.7L6 9.2 2.25 12l1.5-4.7L0 4.5h4.5z"/></svg>
-      Open Daily 10am – 10pm
-    </div>
-    <h1 class="hero-title">Skylark<br><span class="accent">Adventure Park</span></h1>
-    <p class="hero-tagline">Ride the Sky. Feel the Rush.</p>
-    <div class="hero-ctas">
-      <a href="#tickets" class="btn btn-primary">🎟 Buy Tickets</a>
-      <a href="#rides" class="btn btn-outline">Explore Rides ↓</a>
+  <div class="hero-float-badge">🔥 Open Daily 10am – 10pm</div>
+
+  <div class="hero-body">
+    <div class="hero-inner">
+      <div class="hero-location">Skylark Adventure Park</div>
+      <div class="hero-line1">Ride the</div>
+      <h1 class="hero-line2">SKY<span class="dot">.</span></h1>
+      <div class="hero-line3">Feel the Rush.</div>
+      <p class="hero-tagline">Five worlds. Five zones. Infinite sky.</p>
+      <div class="hero-ctas">
+        <a href="#tickets" class="btn btn-primary">🎟 Buy Tickets</a>
+        <a href="#rides" class="btn btn-sky">Explore Rides →</a>
+      </div>
+      <div class="hero-quick-stats">
+        <div class="hqs">
+          <div class="hqs-num">5<span>+</span></div>
+          <div class="hqs-label">Signature Rides</div>
+        </div>
+        <div class="hqs">
+          <div class="hqs-num">200<span>ft</span></div>
+          <div class="hqs-label">Tallest Drop</div>
+        </div>
+        <div class="hqs">
+          <div class="hqs-num">70<span>mph</span></div>
+          <div class="hqs-label">Top Speed</div>
+        </div>
+        <div class="hqs">
+          <div class="hqs-num">5</div>
+          <div class="hqs-label">Themed Zones</div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="scroll-hint">
-    <span>Scroll</span>
-    <div class="scroll-line"></div>
+  <div class="hero-marquee-wrap">
+    <div class="hero-marquee-track">
+      <span class="hi">Skybreaker</span><span class="dot">●</span>
+      <span>Cloud Swing</span><span class="dot">●</span>
+      <span class="ho">Lightning Drop</span><span class="dot">●</span>
+      <span>Comet Racers</span><span class="dot">●</span>
+      <span class="hi">Zephyr Glide</span><span class="dot">●</span>
+      <span>Neon Midway</span><span class="dot">●</span>
+      <span class="ho">Thunder Loop District</span><span class="dot">●</span>
+      <span>Cloud Harbor</span><span class="dot">●</span>
+      <span class="hi">Skybreaker</span><span class="dot">●</span>
+      <span>Cloud Swing</span><span class="dot">●</span>
+      <span class="ho">Lightning Drop</span><span class="dot">●</span>
+      <span>Comet Racers</span><span class="dot">●</span>
+      <span class="hi">Zephyr Glide</span><span class="dot">●</span>
+      <span>Neon Midway</span><span class="dot">●</span>
+      <span class="ho">Thunder Loop District</span><span class="dot">●</span>
+      <span>Cloud Harbor</span><span class="dot">●</span>
+    </div>
+  </div>
+</section>
+
+<!-- WORLD INTRO -->
+<section id="world-intro">
+  <div class="world-intro-inner reveal">
+    <p>Journey to an open sky where the ground falls away and the horizon never ends. From a heart-pounding coaster that shatters the sky to a breezy glide above the treetops, <strong>Skylark Adventure Park</strong> is built for those who live to soar — thrill-seekers, families, and everyone chasing that next rush of wind.</p>
+    <div class="world-stats">
+      <div class="world-stat">
+        <div class="world-stat-num">5<span>+</span></div>
+        <div class="world-stat-label">Signature Rides</div>
+      </div>
+      <div class="world-stat">
+        <div class="world-stat-num">5</div>
+        <div class="world-stat-label">Themed Zones</div>
+      </div>
+      <div class="world-stat">
+        <div class="world-stat-num">200<span>ft</span></div>
+        <div class="world-stat-label">Tallest Drop</div>
+      </div>
+      <div class="world-stat">
+        <div class="world-stat-num">70<span>mph</span></div>
+        <div class="world-stat-label">Top Speed</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1079,123 +1889,93 @@
 <section id="rides">
   <div class="container">
     <div class="rides-header reveal">
-      <div class="section-label">Thrills Await</div>
-      <h2 class="section-title">Our <span class="hi">Signature</span> Rides</h2>
-      <p class="section-sub">Five sky-defying experiences built to make your heart race and your spirit soar.</p>
+      <div class="section-label">Ride the Thunder</div>
+      <h2 class="section-title">Chase the <span class="hi">Skyline</span></h2>
+      <p class="section-sub">Five sky-defying experiences. Each one unforgettable. All of them yours.</p>
     </div>
-    <div class="rides-grid">
 
-      <div class="ride-card reveal" style="transition-delay:0.05s">
-        <div class="ride-card-top" style="background:linear-gradient(135deg,#FF6230,#FF9050)">
-          <img class="ride-img" src="images/ride1.jpg" alt="Skybreaker roller coaster" loading="lazy">
-          <span class="ride-badge">🔥 #1 Ride</span>
-          <svg viewBox="0 0 90 90" fill="none">
-            <path d="M15 70 Q20 40 35 30 Q45 25 55 35 Q65 45 75 20 L80 20 Q70 55 60 60 Q50 65 40 55 Q30 45 25 70Z" fill="white" opacity="0.9"/>
-            <circle cx="75" cy="20" r="5" fill="#FFD63F"/>
-          </svg>
-        </div>
-        <div class="ride-card-body">
-          <div class="ride-zone" style="color:#FF6230">Thunder Loop District</div>
-          <div class="ride-name">Skybreaker</div>
-          <p class="ride-desc">The park's crown jewel — a massive looping coaster that launches you skyward at 70mph before threading three inverted loops.</p>
-          <div class="ride-stats">
-            <span class="ride-stat">
-              <svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.5 4h4l-3.2 2.3 1.2 3.7L7 8.6l-3.5 2.4 1.2-3.7L1.5 5h4z"/></svg>
-              Extreme
-            </span>
-            <span class="ride-stat">
-              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="5.5"/><path d="M7 4v4l2.5 1.5"/></svg>
-              2 min
-            </span>
-            <span class="ride-stat">📏 48" min</span>
+    <!-- Spotlight: Skybreaker -->
+    <div class="ride-spotlight reveal">
+      <div class="ride-spotlight-photo"></div>
+      <div class="ride-spotlight-body">
+        <span class="ride-spotlight-badge">🔥 #1 Ride</span>
+        <div class="ride-spotlight-zone">Thunder Loop District</div>
+        <div class="ride-spotlight-name">Skybreaker</div>
+        <p class="ride-spotlight-desc">Hold on tight as Skylark's crown jewel launches you at 70mph through three screaming inverted loops — pure adrenaline, sky to sky.</p>
+        <div class="ride-spotlight-stats">
+          <div>
+            <div class="ride-spotlight-stat-val">70<span>mph</span></div>
+            <div class="ride-spotlight-stat-label">Top Speed</div>
           </div>
+          <div>
+            <div class="ride-spotlight-stat-val">3</div>
+            <div class="ride-spotlight-stat-label">Inversions</div>
+          </div>
+          <div>
+            <div class="ride-spotlight-stat-val">200<span>ft</span></div>
+            <div class="ride-spotlight-stat-label">Peak Height</div>
+          </div>
+          <div>
+            <div class="ride-spotlight-stat-val">48<span>"</span></div>
+            <div class="ride-spotlight-stat-label">Min Height</div>
+          </div>
+        </div>
+        <a href="#tickets" class="ride-spotlight-cta">Ride Skybreaker →</a>
+      </div>
+    </div>
+
+    <!-- 4 secondary rides -->
+    <div class="rides-secondary">
+
+      <div class="ride-mini reveal" style="transition-delay:0.05s">
+        <div class="ride-mini-top">
+          <img src="images/ride2.jpg" alt="Cloud Swing" loading="lazy">
+          <div class="ride-mini-icon" style="background:rgba(26,172,240,0.3)">🌀</div>
+        </div>
+        <div class="ride-mini-body">
+          <div class="ride-mini-zone">Cloud Harbor</div>
+          <div class="ride-mini-name">Cloud Swing</div>
+          <span class="ride-mini-tag" style="background:rgba(26,172,240,0.15);color:#6DD5FA">Thrilling</span>
+          <div class="ride-mini-stats"><span>⏱ 3 min</span><span>📏 42" min</span></div>
         </div>
       </div>
 
-      <div class="ride-card reveal" style="transition-delay:0.1s">
-        <div class="ride-card-top" style="background:linear-gradient(135deg,#1AACF0,#6DD5FA)">
-          <img class="ride-img" src="images/ride2.jpg" alt="Cloud Swing ride" loading="lazy">
-          <svg viewBox="0 0 90 90" fill="none">
-            <circle cx="45" cy="45" r="20" fill="none" stroke="white" stroke-width="3"/>
-            <path d="M45 25 Q60 30 65 45 Q60 60 45 65 Q30 60 25 45 Q30 30 45 25Z" fill="rgba(255,255,255,0.2)"/>
-            <line x1="45" y1="8" x2="45" y2="82" stroke="white" stroke-width="2.5" opacity="0.5"/>
-            <rect x="38" y="60" width="14" height="10" fill="white" rx="3"/>
-            <rect x="41" y="68" width="8" height="12" fill="white"/>
-          </svg>
+      <div class="ride-mini reveal" style="transition-delay:0.1s">
+        <div class="ride-mini-top">
+          <img src="images/ride3.jpg" alt="Lightning Drop" loading="lazy">
+          <div class="ride-mini-icon" style="background:rgba(161,99,224,0.3)">⚡</div>
         </div>
-        <div class="ride-card-body">
-          <div class="ride-zone" style="color:#1AACF0">Cloud Harbor</div>
-          <div class="ride-name">Cloud Swing</div>
-          <p class="ride-desc">Soar 120 feet above the park on this breathtaking rotating swing ride. Pure sky. Pure breeze. Pure joy.</p>
-          <div class="ride-stats">
-            <span class="ride-stat">⭐ Thrilling</span>
-            <span class="ride-stat">⏱ 3 min</span>
-            <span class="ride-stat">📏 42"</span>
-          </div>
+        <div class="ride-mini-body">
+          <div class="ride-mini-zone">Thunder Loop District</div>
+          <div class="ride-mini-name">Lightning Drop</div>
+          <span class="ride-mini-tag" style="background:rgba(161,99,224,0.15);color:#C084FC">Extreme</span>
+          <div class="ride-mini-stats"><span>⏱ 90 sec</span><span>📏 52" min</span></div>
         </div>
       </div>
 
-      <div class="ride-card reveal" style="transition-delay:0.15s">
-        <div class="ride-card-top" style="background:linear-gradient(135deg,#6C3EB5,#A163E0)">
-          <img class="ride-img" src="images/ride3.jpg" alt="Lightning Drop ride" loading="lazy">
-          <svg viewBox="0 0 90 90" fill="none">
-            <rect x="38" y="10" width="14" height="50" fill="white" rx="4" opacity="0.9"/>
-            <rect x="30" y="55" width="30" height="16" fill="#FFD63F" rx="5"/>
-            <path d="M28 10 L45 2 L62 10" fill="white" opacity="0.6"/>
-          </svg>
+      <div class="ride-mini reveal" style="transition-delay:0.15s">
+        <div class="ride-mini-top">
+          <img src="images/ride4.jpg" alt="Comet Racers" loading="lazy">
+          <div class="ride-mini-icon" style="background:rgba(240,24,122,0.3)">🏁</div>
         </div>
-        <div class="ride-card-body">
-          <div class="ride-zone" style="color:#A163E0">Thunder Loop District</div>
-          <div class="ride-name">Lightning Drop</div>
-          <p class="ride-desc">200 feet straight up. Then freefall. Lightning Drop delivers the ultimate stomach-in-throat vertical rush.</p>
-          <div class="ride-stats">
-            <span class="ride-stat">🔥 Extreme</span>
-            <span class="ride-stat">⏱ 90 sec</span>
-            <span class="ride-stat">📏 52"</span>
-          </div>
+        <div class="ride-mini-body">
+          <div class="ride-mini-zone">Thunder Loop District</div>
+          <div class="ride-mini-name">Comet Racers</div>
+          <span class="ride-mini-tag" style="background:rgba(240,24,122,0.15);color:#F472B6">Racing</span>
+          <div class="ride-mini-stats"><span>⏱ 2.5 min</span><span>📏 46" min</span></div>
         </div>
       </div>
 
-      <div class="ride-card reveal" style="transition-delay:0.2s">
-        <div class="ride-card-top" style="background:linear-gradient(135deg,#F0187A,#FF6EB3)">
-          <img class="ride-img" src="images/ride4.jpg" alt="Comet Racers" loading="lazy">
-          <svg viewBox="0 0 90 90" fill="none">
-            <path d="M10 55 Q15 30 30 35 Q40 38 45 30 Q55 15 70 35 L75 55" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
-            <path d="M18 55 Q23 35 38 38 Q48 40 53 32 Q63 20 78 40 L82 55" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2.5" stroke-linecap="round"/>
-            <circle cx="45" cy="57" r="5" fill="white"/>
-            <circle cx="72" cy="57" r="5" fill="#FFD63F"/>
-          </svg>
+      <div class="ride-mini reveal" style="transition-delay:0.2s">
+        <div class="ride-mini-top">
+          <img src="images/ride5.jpg" alt="Zephyr Glide" loading="lazy">
+          <div class="ride-mini-icon" style="background:rgba(34,197,94,0.3)">🌿</div>
         </div>
-        <div class="ride-card-body">
-          <div class="ride-zone" style="color:#F0187A">Thunder Loop District</div>
-          <div class="ride-name">Comet Racers</div>
-          <p class="ride-desc">Two tracks, one winner. Race side-by-side at full throttle on this dual-track racing coaster. Ready to win?</p>
-          <div class="ride-stats">
-            <span class="ride-stat">⭐ High</span>
-            <span class="ride-stat">⏱ 2.5 min</span>
-            <span class="ride-stat">📏 46"</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="ride-card reveal" style="transition-delay:0.25s">
-        <div class="ride-card-top" style="background:linear-gradient(135deg,#22C55E,#6EE7A0)">
-          <img class="ride-img" src="images/ride5.jpg" alt="Zephyr Glide" loading="lazy">
-          <svg viewBox="0 0 90 90" fill="none">
-            <path d="M10 55 Q30 30 50 40 Q65 48 80 30" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>
-            <ellipse cx="50" cy="42" rx="18" ry="8" fill="rgba(255,255,255,0.25)" transform="rotate(-15 50 42)"/>
-            <circle cx="80" cy="30" r="6" fill="white"/>
-          </svg>
-        </div>
-        <div class="ride-card-body">
-          <div class="ride-zone" style="color:#22C55E">Cloud Harbor</div>
-          <div class="ride-name">Zephyr Glide</div>
-          <p class="ride-desc">Float above it all on this serene scenic air ride. Glide over the treetops, breathe in the breeze, take in every view.</p>
-          <div class="ride-stats">
-            <span class="ride-stat">🌿 Gentle</span>
-            <span class="ride-stat">⏱ 5 min</span>
-            <span class="ride-stat">📏 All ages</span>
-          </div>
+        <div class="ride-mini-body">
+          <div class="ride-mini-zone">Cloud Harbor</div>
+          <div class="ride-mini-name">Zephyr Glide</div>
+          <span class="ride-mini-tag" style="background:rgba(34,197,94,0.15);color:#6EE7A0">All Ages</span>
+          <div class="ride-mini-stats"><span>⏱ 5 min</span><span>📏 All ages</span></div>
         </div>
       </div>
 
@@ -1207,98 +1987,62 @@
 <section id="map">
   <div class="container">
     <div class="reveal">
-      <div class="section-label">Find Your Way</div>
-      <h2 class="section-title">Explore the <span class="hi">Park Zones</span></h2>
-      <p class="section-sub">Five distinct worlds, each with its own vibe, rides, and magic. Pick your adventure.</p>
+      <div class="section-label">Navigate the Park</div>
+      <h2 class="section-title">Explore Five <span class="hi">Worlds</span></h2>
+      <p class="section-sub">Five distinct zones, each with its own energy, rides, and magic. Wander freely — every turn holds something new.</p>
     </div>
-    <div class="map-wrap">
-      <div class="map-zones reveal">
-        <div class="zone-item z1">
-          <div class="zone-dot">🎫</div>
-          <div class="zone-info">
-            <h4>Sky Plaza</h4>
-            <p>Entry hub · Tickets · Info · First Glimpse</p>
-          </div>
+    <div class="zones-bento reveal">
+
+      <div class="zone-card zc-sky">
+        <div class="zone-emoji">🎫</div>
+        <div>
+          <div class="zone-card-name">Sky Plaza</div>
+          <div class="zone-attr">Entry Hub · Tickets · Info</div>
+          <p class="zone-desc">Your first step into the sky. Grab wristbands, check the map, and let the adventure take off.</p>
         </div>
-        <div class="zone-item z2">
-          <div class="zone-dot">⚡</div>
-          <div class="zone-info">
-            <h4>Thunder Loop District</h4>
-            <p>High-thrill rides · Skybreaker · Lightning Drop</p>
-          </div>
-        </div>
-        <div class="zone-item z3">
-          <div class="zone-dot">☁️</div>
-          <div class="zone-info">
-            <h4>Cloud Harbor</h4>
-            <p>Family rides · Cloud Swing · Zephyr Glide</p>
-          </div>
-        </div>
-        <div class="zone-item z4">
-          <div class="zone-dot">🎮</div>
-          <div class="zone-info">
-            <h4>Neon Midway</h4>
-            <p>Games · Arcades · Prizes · Lights</p>
-          </div>
-        </div>
-        <div class="zone-item z5">
-          <div class="zone-dot">🌅</div>
-          <div class="zone-info">
-            <h4>Sunset Gardens</h4>
-            <p>Food · Rest · Relaxation · Live Music</p>
-          </div>
-        </div>
+        <div class="zone-explore">Start Here →</div>
       </div>
 
-      <div class="map-visual reveal" style="transition-delay:0.15s">
-        <svg viewBox="0 0 560 420" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="background:linear-gradient(160deg,#D9F3FF,#EBF6FF)">
-          <!-- Sky Plaza -->
-          <ellipse cx="280" cy="200" rx="55" ry="55" fill="#1AACF0" opacity="0.18"/>
-          <ellipse cx="280" cy="200" rx="38" ry="38" fill="#1AACF0" opacity="0.25"/>
-          <text x="280" y="195" text-anchor="middle" font-family="Baloo 2" font-weight="800" font-size="12" fill="#0B84CC">SKY</text>
-          <text x="280" y="210" text-anchor="middle" font-family="Baloo 2" font-weight="800" font-size="12" fill="#0B84CC">PLAZA</text>
-          <text x="280" y="225" text-anchor="middle" font-size="14">🎫</text>
-
-          <!-- Thunder Loop District -->
-          <ellipse cx="130" cy="120" rx="95" ry="70" fill="#FF6230" opacity="0.14"/>
-          <ellipse cx="130" cy="120" rx="72" ry="52" fill="#FF6230" opacity="0.2"/>
-          <text x="130" y="112" text-anchor="middle" font-family="Baloo 2" font-weight="800" font-size="10" fill="#C84A1E">THUNDER LOOP</text>
-          <text x="130" y="126" text-anchor="middle" font-family="Baloo 2" font-weight="800" font-size="10" fill="#C84A1E">DISTRICT</text>
-          <text x="130" y="142" text-anchor="middle" font-size="14">⚡</text>
-
-          <!-- Cloud Harbor -->
-          <ellipse cx="430" cy="130" rx="90" ry="70" fill="#1AACF0" opacity="0.12"/>
-          <ellipse cx="430" cy="130" rx="68" ry="52" fill="#4DB6E8" opacity="0.2"/>
-          <text x="430" y="122" text-anchor="middle" font-family="Baloo 2" font-weight="800" font-size="10" fill="#0B6D99">CLOUD</text>
-          <text x="430" y="136" text-anchor="middle" font-family="Baloo 2" font-weight="800" font-size="10" fill="#0B6D99">HARBOR</text>
-          <text x="430" y="152" text-anchor="middle" font-size="14">☁️</text>
-
-          <!-- Neon Midway -->
-          <ellipse cx="140" cy="300" rx="90" ry="68" fill="#F0187A" opacity="0.12"/>
-          <ellipse cx="140" cy="300" rx="68" ry="50" fill="#F0187A" opacity="0.2"/>
-          <text x="140" y="293" text-anchor="middle" font-family="Baloo 2" font-weight="800" font-size="10" fill="#A3105A">NEON</text>
-          <text x="140" y="307" text-anchor="middle" font-family="Baloo 2" font-weight="800" font-size="10" fill="#A3105A">MIDWAY</text>
-          <text x="140" y="323" text-anchor="middle" font-size="14">🎮</text>
-
-          <!-- Sunset Gardens -->
-          <ellipse cx="430" cy="310" rx="95" ry="68" fill="#F7A84A" opacity="0.15"/>
-          <ellipse cx="430" cy="310" rx="70" ry="50" fill="#F7A84A" opacity="0.22"/>
-          <text x="430" y="302" text-anchor="middle" font-family="Baloo 2" font-weight="800" font-size="10" fill="#B06B0A">SUNSET</text>
-          <text x="430" y="316" text-anchor="middle" font-family="Baloo 2" font-weight="800" font-size="10" fill="#B06B0A">GARDENS</text>
-          <text x="430" y="332" text-anchor="middle" font-size="14">🌅</text>
-
-          <!-- Paths -->
-          <line x1="240" y1="185" x2="200" y2="155" stroke="#1AACF0" stroke-width="2.5" stroke-dasharray="6,4" opacity="0.5"/>
-          <line x1="320" y1="185" x2="365" y2="158" stroke="#1AACF0" stroke-width="2.5" stroke-dasharray="6,4" opacity="0.5"/>
-          <line x1="255" y1="215" x2="200" y2="268" stroke="#1AACF0" stroke-width="2.5" stroke-dasharray="6,4" opacity="0.5"/>
-          <line x1="305" y1="215" x2="365" y2="268" stroke="#1AACF0" stroke-width="2.5" stroke-dasharray="6,4" opacity="0.5"/>
-
-          <!-- Entry arrow -->
-          <path d="M280 380 L280 350" stroke="#1AACF0" stroke-width="3" stroke-linecap="round"/>
-          <path d="M270 356 L280 346 L290 356" fill="#1AACF0"/>
-          <text x="280" y="398" text-anchor="middle" font-family="Baloo 2" font-weight="700" font-size="11" fill="#0B84CC">MAIN ENTRANCE</text>
-        </svg>
+      <div class="zone-card zc-thunder">
+        <div class="zone-emoji">⚡</div>
+        <div>
+          <div class="zone-card-name">Thunder Loop District</div>
+          <div class="zone-attr">Skybreaker · Lightning Drop · Comet Racers</div>
+          <p class="zone-desc">The adrenaline core. Loop at 70mph, plunge from the clouds, race side by side.</p>
+        </div>
+        <div class="zone-explore">Feel the Rush →</div>
       </div>
+
+      <div class="zone-card zc-cloud">
+        <div class="zone-emoji">☁️</div>
+        <div>
+          <div class="zone-card-name">Cloud Harbor</div>
+          <div class="zone-attr">Cloud Swing · Zephyr Glide · Family Rides</div>
+          <p class="zone-desc">Soar high on the swing. Drift on the glide. All ages, all smiles, all sky.</p>
+        </div>
+        <div class="zone-explore">Soar Up →</div>
+      </div>
+
+      <div class="zone-card zc-neon">
+        <div class="zone-emoji">🎮</div>
+        <div>
+          <div class="zone-card-name">Neon Midway</div>
+          <div class="zone-attr">Ring Toss · Balloon Darts · Arcade Zone · Prize Booths</div>
+          <p class="zone-desc">The lights never stop. The games never sleep. Win big, walk tall, repeat.</p>
+        </div>
+        <div class="zone-explore">Win Big →</div>
+      </div>
+
+      <div class="zone-card zc-sunset">
+        <div class="zone-emoji">🌅</div>
+        <div>
+          <div class="zone-card-name">Sunset Gardens</div>
+          <div class="zone-attr">Food Courts · Rest Areas · Live Music</div>
+          <p class="zone-desc">Recharge under string lights. Classic fair food, cold drinks, and live music at golden hour.</p>
+        </div>
+        <div class="zone-explore">Slow Down →</div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1339,67 +2083,95 @@
 <!-- TICKETS -->
 <section id="tickets">
   <div class="container">
-    <div class="reveal" style="text-align:center">
-      <div class="section-label" style="justify-content:center">Pricing</div>
-      <h2 class="section-title">Get Your <span class="ho">Tickets</span></h2>
-      <p class="section-sub" style="margin:0 auto">No ride left behind. Pick the pass that fits your adventure style.</p>
+    <div class="reveal">
+      <div class="section-label">Pricing</div>
+      <h2 class="section-title">Get Your <span class="hi">Tickets</span></h2>
+      <p class="section-sub">No ride left behind. Pick the pass that fits your adventure style.</p>
     </div>
-    <div class="tickets-grid">
 
-      <div class="ticket-card reveal" style="transition-delay:0.05s">
-        <div class="ticket-icon" style="background:rgba(26,172,240,0.1);font-size:1.6rem">🎫</div>
-        <div class="ticket-name">General Admission</div>
-        <div class="ticket-price"><sup>$</sup>49</div>
-        <div class="ticket-desc">Park entry + select attractions</div>
-        <ul class="ticket-perks">
-          <li>Full park access</li>
-          <li>Midway games (pay-per-play)</li>
-          <li>Select family rides</li>
-          <li>Event access</li>
-        </ul>
-        <a href="#" class="btn btn-sky">Get Pass</a>
-      </div>
-
-      <div class="ticket-card featured reveal" style="transition-delay:0.1s">
-        <div class="ticket-icon" style="background:rgba(255,98,48,0.1);font-size:1.6rem">⚡</div>
-        <div class="ticket-name">Unlimited Ride Wristband</div>
-        <div class="ticket-price"><sup>$</sup>69</div>
-        <div class="ticket-desc">Ride all day, every ride, no limits</div>
-        <ul class="ticket-perks">
+    <!-- Featured: Unlimited Wristband -->
+    <div class="ticket-featured reveal">
+      <div class="ticket-featured-left">
+        <span class="ticket-featured-badge">★ Most Popular</span>
+        <div class="ticket-featured-name">Unlimited Ride Wristband</div>
+        <p class="ticket-featured-desc">Ride all day, every ride, zero limits. The full Skylark experience in one band — snap it on and don't look back.</p>
+        <ul class="ticket-featured-perks">
           <li>All-ride access</li>
           <li>Skybreaker + Lightning Drop</li>
           <li>Comet Racers + Cloud Swing</li>
-          <li>Unlimited re-rides</li>
+          <li>Unlimited re-rides all day</li>
+          <li>Zephyr Glide scenic ride</li>
+          <li>Early park entry</li>
         </ul>
-        <a href="#" class="btn btn-primary">Get Wristband</a>
+      </div>
+      <div class="ticket-perf"></div>
+      <div class="ticket-featured-right">
+        <div>
+          <div class="ticket-featured-price"><sup>$</sup>69</div>
+          <div class="ticket-featured-price-label">per person</div>
+        </div>
+        <a href="#" class="btn btn-primary" style="white-space:nowrap">Get Wristband →</a>
+      </div>
+    </div>
+
+    <!-- 3 standard passes -->
+    <div class="tickets-row">
+
+      <div class="ticket-pass reveal" style="transition-delay:0.05s">
+        <div class="ticket-pass-left">
+          <div class="ticket-pass-icon">🎫</div>
+          <div class="ticket-pass-name">General Admission</div>
+          <p class="ticket-pass-desc">Park entry + select attractions. Perfect for a first visit.</p>
+          <ul class="ticket-pass-perks">
+            <li>Full park access</li>
+            <li>Midway games (pay-per-play)</li>
+            <li>Select family rides</li>
+            <li>All events + shows</li>
+          </ul>
+        </div>
+        <div class="ticket-pass-perf"></div>
+        <div class="ticket-pass-right">
+          <div class="ticket-pass-price"><sup>$</sup>49</div>
+          <a href="#" class="btn btn-sky" style="white-space:nowrap;font-size:0.82rem;padding:0.65rem 1.4rem">Get Pass</a>
+        </div>
       </div>
 
-      <div class="ticket-card reveal" style="transition-delay:0.15s">
-        <div class="ticket-icon" style="background:rgba(240,24,122,0.08);font-size:1.6rem">🚀</div>
-        <div class="ticket-name">Fast Pass Add-on</div>
-        <div class="ticket-price"><sup>$</sup>30</div>
-        <div class="ticket-desc">Skip the line on every major ride</div>
-        <ul class="ticket-perks">
-          <li>Express lane entry</li>
-          <li>All 5 signature rides</li>
-          <li>Add to any pass</li>
-          <li>Worth every penny</li>
-        </ul>
-        <a href="#" class="btn btn-sky">Add On</a>
+      <div class="ticket-pass reveal" style="transition-delay:0.1s">
+        <div class="ticket-pass-left">
+          <div class="ticket-pass-icon">🚀</div>
+          <div class="ticket-pass-name">Fast Pass Add-on</div>
+          <p class="ticket-pass-desc">Skip the queue on every signature ride.</p>
+          <ul class="ticket-pass-perks">
+            <li>Express lane, all 5 rides</li>
+            <li>Reserved boarding windows</li>
+            <li>Add to any pass</li>
+            <li>Worth every penny</li>
+          </ul>
+        </div>
+        <div class="ticket-pass-perf"></div>
+        <div class="ticket-pass-right">
+          <div class="ticket-pass-price"><sup>$</sup>30</div>
+          <a href="#" class="btn btn-sky" style="white-space:nowrap;font-size:0.82rem;padding:0.65rem 1.4rem">Add On</a>
+        </div>
       </div>
 
-      <div class="ticket-card reveal" style="transition-delay:0.2s">
-        <div class="ticket-icon" style="background:rgba(255,214,63,0.15);font-size:1.6rem">👨‍👩‍👧‍👦</div>
-        <div class="ticket-name">Family Pack (4)</div>
-        <div class="ticket-price"><sup>$</sup>160</div>
-        <div class="ticket-desc">Best value for the whole squad</div>
-        <ul class="ticket-perks">
-          <li>4 Unlimited Wristbands</li>
-          <li>Save $116 vs individual</li>
-          <li>Priority family entry</li>
-          <li>Free ride guide map</li>
-        </ul>
-        <a href="#" class="btn btn-primary">Get Family Pack</a>
+      <div class="ticket-pass reveal" style="transition-delay:0.15s">
+        <div class="ticket-pass-left">
+          <div class="ticket-pass-icon">👨‍👩‍👧‍👦</div>
+          <div class="ticket-pass-name">Family Pack (4)</div>
+          <p class="ticket-pass-desc">Best value for the whole crew — save big.</p>
+          <ul class="ticket-pass-perks">
+            <li>4 Unlimited Wristbands</li>
+            <li>Save $116 vs individual</li>
+            <li>Priority family lane entry</li>
+            <li>Free ride guide map</li>
+          </ul>
+        </div>
+        <div class="ticket-pass-perf"></div>
+        <div class="ticket-pass-right">
+          <div class="ticket-pass-price"><sup>$</sup>160</div>
+          <a href="#" class="btn btn-primary" style="white-space:nowrap;font-size:0.82rem;padding:0.65rem 1.4rem">Get Pack</a>
+        </div>
       </div>
 
     </div>
@@ -1411,40 +2183,65 @@
   <div class="container">
     <div class="reveal">
       <div class="section-label">Sunset Gardens</div>
-      <h2 class="section-title">Fuel the <span class="ho">Adventure</span></h2>
-      <p class="section-sub">Classic park bites, fresh flavors, and a place to kick back and recharge.</p>
+      <h2 class="section-title">Feast in the <span class="hi">Gardens</span></h2>
+      <p class="section-sub">From Skydog Stands to Thunder Smash Burgers — refuel for the next adventure in style.</p>
     </div>
-    <div class="food-grid">
-      <div class="food-card reveal" style="transition-delay:0.05s">
-        <span class="icon">🌭</span>
-        <h4>Skydog Stand</h4>
-        <p>Classic hot dogs loaded your way</p>
+    <div class="food-bento">
+
+      <div class="food-item fi-burgers reveal">
+        <div class="food-item-emoji">🍔</div>
+        <div class="food-item-body">
+          <div class="food-item-tag">Signature Eats</div>
+          <div class="food-item-name">Thunder Burgers</div>
+          <p class="food-item-desc">Smash burgers stacked sky-high, crispy fries, and shakes big enough for two. The Sunset Gardens anchor.</p>
+        </div>
       </div>
-      <div class="food-card reveal" style="transition-delay:0.08s">
-        <span class="icon">🍕</span>
-        <h4>Cloud Slice</h4>
-        <p>Wood-fired pizza by the slice</p>
+
+      <div class="food-item fi-skydog reveal" style="transition-delay:0.05s">
+        <div class="food-item-emoji">🌭</div>
+        <div class="food-item-body">
+          <div class="food-item-tag">Quick Service</div>
+          <div class="food-item-name">Skydog Stand</div>
+          <p class="food-item-desc">Classic dogs loaded your way — grab one and keep moving.</p>
+        </div>
       </div>
-      <div class="food-card reveal" style="transition-delay:0.11s">
-        <span class="icon">🍦</span>
-        <h4>Swirl Station</h4>
-        <p>Soft-serve, slushies & fro-yo</p>
+
+      <div class="food-item fi-pizza reveal" style="transition-delay:0.08s">
+        <div class="food-item-emoji">🍕</div>
+        <div class="food-item-body">
+          <div class="food-item-tag">Quick Service</div>
+          <div class="food-item-name">Cloud Slice</div>
+          <p class="food-item-desc">Wood-fired pizza by the slice, hot and ready at the counter.</p>
+        </div>
       </div>
-      <div class="food-card reveal" style="transition-delay:0.14s">
-        <span class="icon">🍔</span>
-        <h4>Thunder Burgers</h4>
-        <p>Smash burgers with crispy fries</p>
+
+      <div class="food-item fi-swirl reveal" style="transition-delay:0.11s">
+        <div class="food-item-emoji">🍦</div>
+        <div class="food-item-body">
+          <div class="food-item-tag">Snacks & Treats</div>
+          <div class="food-item-name">Swirl Station</div>
+          <p class="food-item-desc">Soft-serve cones, slushies, and fro-yo towers that hit the spot on a hot day.</p>
+        </div>
       </div>
-      <div class="food-card reveal" style="transition-delay:0.17s">
-        <span class="icon">🍿</span>
-        <h4>Midway Snacks</h4>
-        <p>Popcorn, pretzels, cotton candy</p>
+
+      <div class="food-item fi-midway reveal" style="transition-delay:0.14s">
+        <div class="food-item-emoji">🍿</div>
+        <div class="food-item-body">
+          <div class="food-item-tag">Snacks & Treats</div>
+          <div class="food-item-name">Midway Snacks</div>
+          <p class="food-item-desc">Popcorn, pretzels, cotton candy — all the park classics in one spot.</p>
+        </div>
       </div>
-      <div class="food-card reveal" style="transition-delay:0.2s">
-        <span class="icon">🧃</span>
-        <h4>Refreshment Bars</h4>
-        <p>Cold drinks, smoothies, lemonade</p>
+
+      <div class="food-item fi-refresh reveal" style="transition-delay:0.17s">
+        <div class="food-item-emoji">🧃</div>
+        <div class="food-item-body">
+          <div class="food-item-tag">Drinks · Every Zone</div>
+          <div class="food-item-name">Refreshment Bars</div>
+          <p class="food-item-desc">Cold lemonades, smoothies, and drinks stationed at every corner — stay hydrated, stay in the game.</p>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -1453,124 +2250,252 @@
 <section id="events">
   <div class="container">
     <div class="reveal">
-      <div class="section-label">Shows & Events</div>
-      <h2 class="section-title">The Park Never <span class="hi">Sleeps</span></h2>
+      <div class="section-label">Live the Night</div>
+      <h2 class="section-title">Stay for the <span class="hi">Show</span></h2>
       <p class="section-sub">Live shows, dazzling nights, and seasonal spectacles that keep the sky alive.</p>
     </div>
-    <div class="events-grid">
-      <div class="event-card reveal" style="transition-delay:0.05s">
-        <div class="event-banner" style="background:linear-gradient(135deg,#0C1A3A,#1567C2)">🌟</div>
-        <div class="event-body">
-          <span class="event-tag">Nightly</span>
-          <h3>Skylark Night Spectacle</h3>
-          <p>Every night at 9pm — drones, lights, and a sky-painting firework show that closes the day with a bang.</p>
+
+    <!-- Spotlight: Night Spectacle -->
+    <div class="event-spotlight reveal">
+      <div>
+        <span class="event-spotlight-badge"><span class="live-dot"></span> Nightly · Every Night</span>
+        <div class="event-spotlight-name">Skylark Night Spectacle</div>
+        <p class="event-spotlight-desc">The sky becomes the stage. Drones paint constellations overhead, synchronized lights flood the park, and the night ends with a firework finale you'll never forget.</p>
+        <div class="event-schedule">
+          <div>
+            <div class="event-schedule-val">9:00<span>pm</span></div>
+            <div class="event-schedule-label">Start Time</div>
+          </div>
+          <div>
+            <div class="event-schedule-val">30<span>min</span></div>
+            <div class="event-schedule-label">Duration</div>
+          </div>
+          <div>
+            <div class="event-schedule-val">Free</div>
+            <div class="event-schedule-label">With Entry</div>
+          </div>
         </div>
       </div>
-      <div class="event-card reveal" style="transition-delay:0.1s">
-        <div class="event-banner" style="background:linear-gradient(135deg,#8E44AD,#C674E8)">🎭</div>
-        <div class="event-body">
-          <span class="event-tag">Weekends</span>
-          <h3>Midway Live Stage</h3>
-          <p>Street performers, acrobats, and music acts light up the Neon Midway every Saturday and Sunday.</p>
-        </div>
+      <div class="event-spotlight-emoji">🌟</div>
+    </div>
+
+    <!-- Two supporting events -->
+    <div class="events-row">
+
+      <div class="event-mini ev-stage reveal" style="transition-delay:0.08s">
+        <span class="event-mini-badge">Weekends</span>
+        <span class="event-mini-emoji">🎭</span>
+        <div class="event-mini-name">Midway Live Stage</div>
+        <p class="event-mini-desc">Street performers, acrobats, and live music acts take over the Neon Midway every Saturday and Sunday. Show up. Be amazed.</p>
       </div>
-      <div class="event-card reveal" style="transition-delay:0.15s">
-        <div class="event-banner" style="background:linear-gradient(135deg,#FF6230,#FFD63F)">🎃</div>
-        <div class="event-body">
-          <span class="event-tag">Seasonal</span>
-          <h3>Skylark Nights Festival</h3>
-          <p>Our signature seasonal event transforms the park with themed lights, exclusive rides, and special menus.</p>
-        </div>
+
+      <div class="event-mini ev-festival reveal" style="transition-delay:0.14s">
+        <span class="event-mini-badge">Seasonal</span>
+        <span class="event-mini-emoji">🎆</span>
+        <div class="event-mini-name">Skylark Nights Festival</div>
+        <p class="event-mini-desc">The park transforms — themed lights, exclusive night rides, and a special menu that only comes out when the season calls for it.</p>
       </div>
+
     </div>
   </div>
 </section>
 
 <!-- GALLERY -->
 <section id="gallery">
-  <div class="container">
-    <div class="reveal" style="text-align:center">
-      <div class="section-label" style="justify-content:center">Gallery</div>
-      <h2 class="section-title">Your <span class="hi">Moments</span></h2>
+  <div class="container reveal">
+    <div class="section-label">Gallery</div>
+    <h2 class="section-title">Life at <span style="color:var(--magenta)">Skylark</span></h2>
+    <p class="section-sub">Every visit becomes a story. Here's yours.</p>
+  </div>
+
+  <div class="gallery-tracks reveal" style="transition-delay:0.15s">
+
+    <!-- Track 1 — scrolls left -->
+    <div class="gallery-track">
+      <div class="gallery-cell">
+        <img src="images/gallery1.jpg" alt="Park aerial view">
+        <div class="gallery-cell-caption">Aerial View · Sky Plaza</div>
+      </div>
+      <div class="gallery-cell">
+        <img src="images/gallery3.jpg" alt="Neon Midway at night">
+        <div class="gallery-cell-caption">Neon Midway · After Dark</div>
+      </div>
+      <div class="gallery-cell">
+        <img src="images/gallery5.jpg" alt="Prize winner">
+        <div class="gallery-cell-caption">Big Win · Game Booth</div>
+      </div>
+      <div class="gallery-cell">
+        <img src="images/gallery2.jpg" alt="Happy park guests">
+        <div class="gallery-cell-caption">Pure Joy · Cloud Harbor</div>
+      </div>
+      <div class="gallery-cell">
+        <img src="images/gallery4.jpg" alt="Sunset over the park">
+        <div class="gallery-cell-caption">Golden Hour · Sunset Gardens</div>
+      </div>
+      <div class="gallery-cell">
+        <img src="images/gallery6.jpg" alt="Night Spectacle fireworks">
+        <div class="gallery-cell-caption">Night Spectacle · 9pm Nightly</div>
+      </div>
+      <!-- duplicate for seamless loop -->
+      <div class="gallery-cell">
+        <img src="images/gallery1.jpg" alt="Park aerial view">
+        <div class="gallery-cell-caption">Aerial View · Sky Plaza</div>
+      </div>
+      <div class="gallery-cell">
+        <img src="images/gallery3.jpg" alt="Neon Midway at night">
+        <div class="gallery-cell-caption">Neon Midway · After Dark</div>
+      </div>
+      <div class="gallery-cell">
+        <img src="images/gallery5.jpg" alt="Prize winner">
+        <div class="gallery-cell-caption">Big Win · Game Booth</div>
+      </div>
+      <div class="gallery-cell">
+        <img src="images/gallery2.jpg" alt="Happy park guests">
+        <div class="gallery-cell-caption">Pure Joy · Cloud Harbor</div>
+      </div>
+      <div class="gallery-cell">
+        <img src="images/gallery4.jpg" alt="Sunset over the park">
+        <div class="gallery-cell-caption">Golden Hour · Sunset Gardens</div>
+      </div>
+      <div class="gallery-cell">
+        <img src="images/gallery6.jpg" alt="Night Spectacle fireworks">
+        <div class="gallery-cell-caption">Night Spectacle · 9pm Nightly</div>
+      </div>
     </div>
-    <div class="gallery-grid reveal" style="transition-delay:0.1s">
-      <div class="gallery-item">
-        <img src="images/gallery1.jpg" alt="Skylark park aerial view" loading="lazy">
-        <div class="gallery-overlay"><span>View →</span></div>
+
+    <!-- Track 2 — scrolls right -->
+    <div class="gallery-track gallery-track--right">
+      <div class="gallery-cell">
+        <img src="images/gallery4.jpg" alt="Sunset over the park">
+        <div class="gallery-cell-caption">Golden Hour · Sunset Gardens</div>
       </div>
-      <div class="gallery-item">
-        <img src="images/gallery2.jpg" alt="Happy park guests" loading="lazy">
-        <div class="gallery-overlay"><span>View →</span></div>
+      <div class="gallery-cell">
+        <img src="images/gallery2.jpg" alt="Happy park guests">
+        <div class="gallery-cell-caption">Pure Joy · Cloud Harbor</div>
       </div>
-      <div class="gallery-item">
-        <img src="images/gallery3.jpg" alt="Neon Midway at night" loading="lazy">
-        <div class="gallery-overlay"><span>View →</span></div>
+      <div class="gallery-cell">
+        <img src="images/gallery6.jpg" alt="Night Spectacle fireworks">
+        <div class="gallery-cell-caption">Night Spectacle · 9pm Nightly</div>
       </div>
-      <div class="gallery-item">
-        <img src="images/gallery4.jpg" alt="Sunset over the park" loading="lazy">
-        <div class="gallery-overlay"><span>View →</span></div>
+      <div class="gallery-cell">
+        <img src="images/gallery1.jpg" alt="Park aerial view">
+        <div class="gallery-cell-caption">Aerial View · Sky Plaza</div>
       </div>
-      <div class="gallery-item">
-        <img src="images/gallery5.jpg" alt="Prize winner" loading="lazy">
-        <div class="gallery-overlay"><span>View →</span></div>
+      <div class="gallery-cell">
+        <img src="images/gallery5.jpg" alt="Prize winner">
+        <div class="gallery-cell-caption">Big Win · Game Booth</div>
       </div>
-      <div class="gallery-item">
-        <img src="images/gallery6.jpg" alt="Night Spectacle fireworks" loading="lazy">
-        <div class="gallery-overlay"><span>View →</span></div>
+      <div class="gallery-cell">
+        <img src="images/gallery3.jpg" alt="Neon Midway at night">
+        <div class="gallery-cell-caption">Neon Midway · After Dark</div>
+      </div>
+      <!-- duplicate for seamless loop -->
+      <div class="gallery-cell">
+        <img src="images/gallery4.jpg" alt="Sunset over the park">
+        <div class="gallery-cell-caption">Golden Hour · Sunset Gardens</div>
+      </div>
+      <div class="gallery-cell">
+        <img src="images/gallery2.jpg" alt="Happy park guests">
+        <div class="gallery-cell-caption">Pure Joy · Cloud Harbor</div>
+      </div>
+      <div class="gallery-cell">
+        <img src="images/gallery6.jpg" alt="Night Spectacle fireworks">
+        <div class="gallery-cell-caption">Night Spectacle · 9pm Nightly</div>
+      </div>
+      <div class="gallery-cell">
+        <img src="images/gallery1.jpg" alt="Park aerial view">
+        <div class="gallery-cell-caption">Aerial View · Sky Plaza</div>
+      </div>
+      <div class="gallery-cell">
+        <img src="images/gallery5.jpg" alt="Prize winner">
+        <div class="gallery-cell-caption">Big Win · Game Booth</div>
+      </div>
+      <div class="gallery-cell">
+        <img src="images/gallery3.jpg" alt="Neon Midway at night">
+        <div class="gallery-cell-caption">Neon Midway · After Dark</div>
       </div>
     </div>
+
+  </div>
+
+  <div class="gallery-cta reveal" style="transition-delay:0.2s">
+    <a href="#plan" class="btn btn-primary">Plan Your Visit →</a>
   </div>
 </section>
 
 <!-- FAQ -->
 <section id="faq">
   <div class="container">
-    <div class="reveal" style="text-align:center">
-      <div class="section-label" style="justify-content:center">FAQ</div>
+    <div class="reveal">
+      <div class="section-label">FAQ</div>
       <h2 class="section-title">Got <span class="hi">Questions?</span></h2>
     </div>
-    <div class="faq-list reveal" style="transition-delay:0.1s">
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          What are the park's opening hours?
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 8l5 5 5-5"/></svg>
-        </div>
-        <div class="faq-a"><div class="faq-a-inner">Skylark Adventure Park is open daily from 10am to 10pm. On Fridays and Saturdays we stay open until midnight. Seasonal events may have extended hours.</div></div>
+
+    <div class="faq-wrap reveal" style="transition-delay:0.08s">
+
+      <div class="faq-sidebar">
+        <div class="faq-sidebar-q">?</div>
+        <div class="faq-sidebar-heading">Everything you need to know before you go.</div>
+        <p class="faq-sidebar-sub">Can't find what you're looking for? Our team is ready — reach out any time.</p>
+        <a href="#plan" class="faq-sidebar-cta">Contact Us →</a>
       </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          Is parking included with admission?
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 8l5 5 5-5"/></svg>
+
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-num">01</span>
+            <span class="faq-q-text">What are the park's opening hours?</span>
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 8l5 5 5-5"/></svg>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">Skylark Adventure Park is open daily from 10am to 10pm. On Fridays and Saturdays we stay open until midnight. Seasonal events may have extended hours.</div></div>
         </div>
-        <div class="faq-a"><div class="faq-a-inner">Parking is $15 per vehicle and is available adjacent to the main entrance at Sky Plaza. Premium front-row spots are $25. Ride-share drop-off is free and available at Gate B.</div></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          Can I bring food and drinks into the park?
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 8l5 5 5-5"/></svg>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-num">02</span>
+            <span class="faq-q-text">Is parking included with admission?</span>
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 8l5 5 5-5"/></svg>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">Parking is $15 per vehicle, available at the main entrance at Sky Plaza. Premium front-row spots are $25. Ride-share drop-off is free at Gate B.</div></div>
         </div>
-        <div class="faq-a"><div class="faq-a-inner">Outside food and non-alcoholic drinks in sealed containers are welcome. We also have dozens of dining and snack options throughout the park if you'd rather fuel up on site.</div></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          Are there height requirements for rides?
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 8l5 5 5-5"/></svg>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-num">03</span>
+            <span class="faq-q-text">Can I bring food and drinks into the park?</span>
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 8l5 5 5-5"/></svg>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">Outside food and non-alcoholic drinks in sealed containers are welcome. We also have dozens of dining options across all five zones if you'd rather fuel up on site.</div></div>
         </div>
-        <div class="faq-a"><div class="faq-a-inner">Yes — our thrill rides have minimum height requirements for safety. Skybreaker (48"), Lightning Drop (52"), Comet Racers (46"), Cloud Swing (42"). Zephyr Glide and all Cloud Harbor family rides are open to all ages.</div></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          Do tickets expire? Can I use them another day?
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 8l5 5 5-5"/></svg>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-num">04</span>
+            <span class="faq-q-text">Are there height requirements for rides?</span>
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 8l5 5 5-5"/></svg>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">Yes — thrill rides have minimums for safety. Skybreaker (48"), Lightning Drop (52"), Comet Racers (46"), Cloud Swing (42"). Zephyr Glide and all Cloud Harbor family rides are open to all ages with no restriction.</div></div>
         </div>
-        <div class="faq-a"><div class="faq-a-inner">Standard tickets are valid for the date selected at purchase. If you'd like to reschedule, contact us at least 24 hours before your visit and we'll do our best to move it. Fast Pass Add-ons are linked to the ticket date and cannot be transferred separately.</div></div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          Is Skylark accessible for guests with disabilities?
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 8l5 5 5-5"/></svg>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-num">05</span>
+            <span class="faq-q-text">Do tickets expire? Can I use them another day?</span>
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 8l5 5 5-5"/></svg>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">Tickets are valid for the date selected at purchase. To reschedule, contact us at least 24 hours in advance and we'll do our best to accommodate. Fast Pass Add-ons are date-linked and cannot be transferred separately.</div></div>
         </div>
-        <div class="faq-a"><div class="faq-a-inner">Absolutely. Skylark is fully ADA-compliant with accessible pathways, rest areas, and ride accommodations. We offer Accessibility Passes at the info desk in Sky Plaza for guests who need additional support.</div></div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span class="faq-num">06</span>
+            <span class="faq-q-text">Is Skylark accessible for guests with disabilities?</span>
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 8l5 5 5-5"/></svg>
+          </div>
+          <div class="faq-a"><div class="faq-a-inner">Absolutely. Skylark is fully ADA-compliant with accessible pathways, rest areas, and ride accommodations throughout the park. Accessibility Passes are available at the info desk in Sky Plaza.</div></div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -1663,15 +2588,7 @@
     }
   }
 
-  // Zone hover highlight on map
-  document.querySelectorAll('.zone-item').forEach((item, i) => {
-    item.addEventListener('mouseenter', () => {
-      item.style.background = '#EBF8FF';
-    });
-    item.addEventListener('mouseleave', () => {
-      item.style.background = '#fff';
-    });
-  });
+
 </script>
 
 </body>

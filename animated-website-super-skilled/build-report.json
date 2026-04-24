@@ -2,11 +2,12 @@
   "project": "Skylark Adventure Park",
   "tagline": "Ride the Sky. Feel the Rush.",
   "build_date": "2026-04-23",
+  "last_updated": "2026-04-23",
   "output_file": "index.html",
   "file_stats": {
-    "lines": 1679,
-    "bytes": 62430,
-    "kb": "60.97 KB"
+    "lines": 2595,
+    "bytes": 87191,
+    "kb": "85.15 KB"
   },
   "stack": {
     "framework": "Vanilla HTML/CSS/JS",
@@ -14,6 +15,23 @@
     "font_source": "Google Fonts",
     "dependencies": [],
     "external_scripts": []
+  },
+  "images": {
+    "source": "loremflickr.com (keyword-seeded CC photos)",
+    "files": [
+      { "name": "hero.jpg",     "size": "1440x900", "subject": "amusement-park,theme-park" },
+      { "name": "ride1.jpg",    "size": "600x360",  "subject": "roller-coaster,loop" },
+      { "name": "ride2.jpg",    "size": "600x360",  "subject": "swing-ride,carnival" },
+      { "name": "ride3.jpg",    "size": "600x360",  "subject": "drop-tower,thrill" },
+      { "name": "ride4.jpg",    "size": "600x360",  "subject": "roller-coaster,speed" },
+      { "name": "ride5.jpg",    "size": "600x360",  "subject": "gondola,sky-ride" },
+      { "name": "gallery1.jpg", "size": "800x600",  "subject": "amusement-park,aerial" },
+      { "name": "gallery2.jpg", "size": "600x800",  "subject": "theme-park,crowd,fun" },
+      { "name": "gallery3.jpg", "size": "800x600",  "subject": "carnival,neon,night" },
+      { "name": "gallery4.jpg", "size": "800x500",  "subject": "ferris-wheel,sunset" },
+      { "name": "gallery5.jpg", "size": "600x600",  "subject": "carnival,prize,games" },
+      { "name": "gallery6.jpg", "size": "800x600",  "subject": "fireworks,celebration" }
+    ]
   },
   "design_system": {
     "palette": {
@@ -25,6 +43,12 @@
       "surface_base": "#F7FBFF",
       "surface_raised": "#EBF6FF",
       "ink": "#0C1A3A"
+    },
+    "dark_section_backgrounds": {
+      "navy": "#0C1A3A",
+      "near_black_blue": "#070C18",
+      "near_black_warm": "#120900",
+      "midnight": "#080D1A"
     },
     "radii": {
       "sm": "10px",
@@ -38,113 +62,150 @@
       "body": "DM Sans (300–600)",
       "script_accent": "Kaushan Script"
     },
-    "elevation": "Soft glowing shadows (rgba color-tinted)"
+    "elevation": "Color-tinted glowing shadows (rgba) + dark section glow halos"
   },
   "sections": [
     {
       "id": "hero",
       "label": "Hero",
+      "redesigned": true,
+      "design": "Full-viewport photo background (hero.jpg) with left-gradient overlay, left-aligned editorial layout",
       "features": [
-        "Full-viewport animated sky gradient (dawn to sunset)",
-        "CSS animated floating clouds (4 layers, staggered drift)",
-        "Radial pulsing sun with keyframe animation",
-        "SVG park silhouette (coaster, ferris wheel, drop tower, lights)",
-        "Staggered fade-up entrance animations",
-        "Scroll indicator with animated line drop",
-        "2 CTAs: Buy Tickets + Explore Rides"
+        "Photo background with 90%→5% left-to-right navy overlay",
+        "Left-aligned hero with Kaushan Script accent line",
+        "Animated horizontal marquee strip (infinite scroll, 28s loop)",
+        "Streak-fly keyframe animation on marquee items",
+        "Floating badge (Rides Open Today) with pulse glow",
+        "Vertical side-rail with staggered fade-in text",
+        "2 CTAs: Buy Tickets + Explore Rides",
+        "Scroll indicator"
       ]
     },
     {
       "id": "rides",
-      "label": "Featured Rides",
+      "label": "Ride the Thunder",
+      "redesigned": true,
+      "design": "Dark navy section — cinematic spotlight card for Skybreaker + 4-col dark-glass mini-cards",
       "rides": [
-        { "name": "Skybreaker", "zone": "Thunder Loop District", "intensity": "Extreme", "height_min": "48in" },
-        { "name": "Cloud Swing", "zone": "Cloud Harbor", "intensity": "Thrilling", "height_min": "42in" },
-        { "name": "Lightning Drop", "zone": "Thunder Loop District", "intensity": "Extreme", "height_min": "52in" },
-        { "name": "Comet Racers", "zone": "Thunder Loop District", "intensity": "High", "height_min": "46in" },
-        { "name": "Zephyr Glide", "zone": "Cloud Harbor", "intensity": "Gentle", "height_min": "All ages" }
+        { "name": "Skybreaker",    "zone": "Thunder Loop District", "intensity": "Extreme",  "height_min": "48in", "layout": "Full-width spotlight with photo, 4 live stats, CTA" },
+        { "name": "Cloud Swing",   "zone": "Cloud Harbor",          "intensity": "Thrilling", "height_min": "42in", "layout": "Mini dark-glass card" },
+        { "name": "Lightning Drop","zone": "Thunder Loop District", "intensity": "Extreme",  "height_min": "52in", "layout": "Mini dark-glass card" },
+        { "name": "Comet Racers",  "zone": "Thunder Loop District", "intensity": "High",     "height_min": "46in", "layout": "Mini dark-glass card" },
+        { "name": "Zephyr Glide",  "zone": "Cloud Harbor",          "intensity": "Gentle",   "height_min": "All ages", "layout": "Mini dark-glass card" }
       ]
     },
     {
       "id": "map",
-      "label": "Park Map",
+      "label": "Navigate the Park",
+      "redesigned": true,
+      "design": "Dark navy bento grid — 3×2 zone cards, Neon Midway spans 2 cols",
       "zones": [
-        { "name": "Sky Plaza", "color": "#1AACF0", "role": "Entry hub, tickets, information" },
-        { "name": "Thunder Loop District", "color": "#FF6230", "role": "High-thrill rides" },
-        { "name": "Cloud Harbor", "color": "#4DB6E8", "role": "Family rides + scenic attractions" },
-        { "name": "Neon Midway", "color": "#F0187A", "role": "Games, arcades, prizes" },
-        { "name": "Sunset Gardens", "color": "#F7A84A", "role": "Food, rest, relaxation" }
+        { "name": "Sky Plaza",            "color": "#1AACF0", "role": "Entry hub, tickets, information",  "card_class": "zc-sky" },
+        { "name": "Thunder Loop District","color": "#FF6230", "role": "High-thrill rides",               "card_class": "zc-thunder" },
+        { "name": "Cloud Harbor",         "color": "#4DB6E8", "role": "Family rides + scenic attractions","card_class": "zc-cloud" },
+        { "name": "Neon Midway",          "color": "#F0187A", "role": "Games, arcades, prizes",          "card_class": "zc-neon", "grid_col_span": 2 },
+        { "name": "Sunset Gardens",       "color": "#F7A84A", "role": "Food, rest, relaxation",          "card_class": "zc-sunset" }
       ]
     },
     {
       "id": "games",
       "label": "Games & Midway",
+      "redesigned": false,
       "items": ["Ring Toss", "Balloon Darts", "Arcade Zone", "Prize Booths"]
     },
     {
       "id": "tickets",
-      "label": "Ticket Pricing",
+      "label": "Get Your Tickets",
+      "redesigned": true,
+      "design": "Dark navy + diagonal stripe texture, ticket-stub aesthetic with CSS perforated dividers and punch-hole semicircles",
       "tiers": [
-        { "name": "General Admission", "price": 49, "featured": false },
-        { "name": "Unlimited Ride Wristband", "price": 69, "featured": true },
-        { "name": "Fast Pass Add-on", "price": 30, "featured": false },
-        { "name": "Family Pack (4)", "price": 160, "featured": false }
+        { "name": "Unlimited Ride Wristband", "price": 69,  "featured": true,  "layout": "Full-width orange gradient spotlight with perforated right panel" },
+        { "name": "General Admission",        "price": 49,  "featured": false, "layout": "Horizontal boarding-pass card with perforated divider" },
+        { "name": "Fast Pass Add-on",         "price": 30,  "featured": false, "layout": "Horizontal boarding-pass card with perforated divider" },
+        { "name": "Family Pack (4)",          "price": 160, "featured": false, "layout": "Horizontal boarding-pass card with perforated divider" }
       ]
     },
     {
       "id": "food",
-      "label": "Food & Refreshments",
-      "items": ["Skydog Stand", "Cloud Slice", "Swirl Station", "Thunder Burgers", "Midway Snacks", "Refreshment Bars"]
+      "label": "Feast in the Gardens",
+      "redesigned": true,
+      "design": "Dark near-black warm background, amber glow halo, bento grid — Thunder Burgers spans 2 cols, Refreshment Bars spans 3",
+      "items": [
+        { "name": "Thunder Burgers",  "tag": "Signature Eats",  "grid": "spans 2 cols" },
+        { "name": "Skydog Stand",     "tag": "Quick Service",   "grid": "1 col" },
+        { "name": "Cloud Slice",      "tag": "Quick Service",   "grid": "1 col" },
+        { "name": "Swirl Station",    "tag": "Snacks & Treats", "grid": "1 col" },
+        { "name": "Midway Snacks",    "tag": "Snacks & Treats", "grid": "1 col" },
+        { "name": "Refreshment Bars", "tag": "Drinks",          "grid": "spans 3 cols, horizontal layout" }
+      ]
     },
     {
       "id": "events",
-      "label": "Events & Shows",
-      "items": ["Skylark Night Spectacle (nightly)", "Midway Live Stage (weekends)", "Skylark Nights Festival (seasonal)"]
+      "label": "Stay for the Show",
+      "redesigned": true,
+      "design": "Deep near-black starfield (14-layer CSS radial gradient stars), spotlight + 2 mini event cards",
+      "items": [
+        { "name": "Skylark Night Spectacle", "schedule": "Nightly 9pm, 30min",  "layout": "Full-width spotlight, pulsing live dot, 3 schedule stats, 🌟 with blue glow filter" },
+        { "name": "Midway Live Stage",       "schedule": "Weekends",            "layout": "Mini card, deep purple gradient" },
+        { "name": "Skylark Nights Festival", "schedule": "Seasonal",            "layout": "Mini card, deep ember-red gradient" }
+      ]
     },
     {
       "id": "gallery",
-      "label": "Gallery",
-      "layout": "Asymmetric 3-column CSS grid with spanning cells",
-      "items": 6
+      "label": "Life at Skylark",
+      "redesigned": true,
+      "design": "Dark navy, dual infinite-scroll horizontal tracks (left + right directions), hover pauses both tracks",
+      "items": 6,
+      "tracks": 2,
+      "interaction": "CSS animation-play-state: paused on .gallery-tracks:hover"
     },
     {
       "id": "faq",
-      "label": "FAQ",
+      "label": "Got Questions?",
+      "redesigned": true,
+      "design": "Dark navy, 2-column layout — sticky decorative sidebar left, numbered editorial accordion right",
       "items": 6,
-      "interaction": "JS accordion with max-height transition"
+      "interaction": "JS accordion: max-height expansion 0.4s ease, sky-blue left-border accent on open state, numbered rows 01–06"
     },
     {
       "id": "plan",
       "label": "Plan Visit / Contact",
+      "redesigned": false,
       "info": ["Location", "Hours", "Parking", "Contact"]
     }
   ],
   "animations": {
-    "hero_entrance": "Staggered fade-up (0ms, 150ms, 300ms, 450ms delay)",
-    "clouds": "CSS translateX drift, 22s–40s loops, 4 layers",
-    "sun": "Radial box-shadow pulse, 4s ease-in-out infinite",
-    "scroll_reveal": "IntersectionObserver, opacity + translateY(40px), 0.7s ease",
+    "hero_marquee": "CSS translateX infinite scroll, 28s linear, streak-fly keyframe on items",
+    "hero_entrance": "Staggered fade-up (0ms, 150ms, 300ms delays)",
+    "hero_badge_pulse": "box-shadow glow pulse, 2.5s ease-in-out infinite",
+    "scroll_reveal": "IntersectionObserver, opacity + translateY(40px) → 0, 0.7s ease",
     "nav": "Background + shadow transition on scroll past 60px",
-    "cards_hover": "translateY(-8px) + box-shadow glow, 0.3s ease",
+    "ride_spotlight_hover": "Photo scale(1.04), 0.6s ease",
+    "zone_card_hover": "translateY(-6px), 0.3s ease",
+    "ticket_pass_hover": "translateY(-5px), 0.3s ease",
+    "food_item_hover": "translateY(-5px), 0.3s ease",
+    "event_mini_hover": "translateY(-5px), 0.3s ease",
+    "gallery_tracks": "dual CSS translateX infinite, 32s + 28s linear, pauses on hover",
+    "gallery_cell_hover": "caption translateY(0) reveal, 0.35s ease",
     "faq_accordion": "max-height expansion, 0.4s ease",
-    "gallery_hover": "scale(0.98) + overlay opacity, 0.3s"
+    "live_dot_pulse": "opacity 1→0.35→1, 1.6s ease-in-out infinite"
   },
   "accessibility": {
     "semantic_html": true,
     "alt_text": true,
     "keyboard_nav": true,
     "scroll_behavior": "smooth",
-    "color_contrast": "Deep navy (#0C1A3A) on white — WCAG AA compliant"
+    "color_contrast": "White text on dark navy sections — WCAG AA compliant"
   },
   "performance": {
     "external_requests": 1,
-    "external_request_detail": "Google Fonts (preconnect + preload)",
-    "inline_svg": true,
-    "no_images": true,
+    "external_request_detail": "Google Fonts (preconnect + display=swap)",
+    "local_images": 12,
+    "image_loading": "lazy on all non-hero images",
     "no_js_framework": true,
-    "estimated_lcp": "< 1s (no image LCP candidate)"
+    "estimated_lcp": "hero.jpg (above fold, eager load)"
   },
-  "responsive_breakpoints": ["640px", "768px", "1024px", "1280px"],
+  "responsive_breakpoints": ["640px", "768px", "1024px"],
   "seo": {
     "title": "Skylark Adventure Park — Ride the Sky",
     "meta_description": "A high-energy amusement park packed with thrilling rides, classic games, and sky-high fun."
@@ -156,7 +217,19 @@
       "Ride the Sky. Feel the Rush.",
       "Chase the skyline",
       "Spin, soar, repeat",
-      "Win big on the midway"
+      "Win big on the midway",
+      "The sky becomes the stage",
+      "Ride all day, every ride, zero limits"
     ]
-  }
+  },
+  "redesign_log": [
+    { "section": "hero",    "change": "Full photo background, editorial left-aligned layout, marquee strip, streak animations" },
+    { "section": "gallery", "change": "Replaced 3-col grid with dual infinite-scroll horizontal tracks on dark navy" },
+    { "section": "map",     "change": "Replaced SVG bubble map + list with bento grid of 5 full-color zone cards" },
+    { "section": "rides",   "change": "Replaced auto-fill white card grid with dark navy spotlight + 4 dark-glass mini-cards" },
+    { "section": "tickets", "change": "Replaced standard pricing cards with ticket-stub boarding-pass layout, perforated dividers" },
+    { "section": "food",    "change": "Replaced light card grid with dark warm bento grid, varied column spans" },
+    { "section": "events",  "change": "Replaced light card grid with deep starfield, night spectacle spotlight + 2 mini event cards" },
+    { "section": "faq",     "change": "Replaced centered white-card accordion with dark 2-col layout, numbered editorial accordion" }
+  ]
 }
